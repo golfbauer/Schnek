@@ -1,0 +1,15 @@
+canvas {
+    background-color: rgb(230, 230, 230);
+}
+
+body {
+    background-color: rgb(29, 98, 29);
+}
+
+/*Aligning a div in the center of the page*/
+.center-screen{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
