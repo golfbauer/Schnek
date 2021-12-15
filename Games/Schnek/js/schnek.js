@@ -17,16 +17,25 @@ let snakeSpriteSheet;
 let cameraManager;
 let objectManager;
 
+let snakeControllerList;
+
+let snakeControllerHead;
+let snakeControllerBody1;
+let snakeControllerBody2;
+let snakeControllerBody3;
+let allBodys;
+let snakeControllerTail;
+
 function start() {
 
     // Create a new gameTime object
     gameTime = new GameTime();
 
     // Load game elements
-    loadGame();
+    load();
 
     // Initialize game elements
-    initializeGame();
+    initialize();
 
     // Start the game loop
     window.requestAnimationFrame(animate);
@@ -41,6 +50,9 @@ function animate(now) {
 
     // Re-draw game
     draw(gameTime);
+
+    // Loop
+    window.requestAnimationFrame(animate);
 }
 
 function draw(gameTime) {
@@ -65,7 +77,7 @@ function update(gameTime) {
     objectManager.update(gameTime);
 }
 
-function loadGame() {
+function load() {
     loadAssets();
 }
 
@@ -79,10 +91,11 @@ function loadSprites() {
 
 }
 
-function initializeGame() {
+function initialize() {
     initializeNotificationCenter();
     initializeManagers();
     initializeCameras();
+    initializeSnakeController();
     initializeSprites();
 }
 
@@ -129,6 +142,39 @@ function initializeCameras() {
     );
 
     cameraManager.add(camera);
+}
+
+function initializeSnakeController() {
+
+    snakeControllerHead = new snakeNode(
+        4, 4, new Vector2(1, 0)
+    );
+    
+    snakeControllerBody1 = new snakeNode(
+        3, 4, new Vector2(1, 0)
+    );
+    
+    snakeControllerBody2 = new snakeNode(
+        2, 4, new Vector2(1, 0)
+    );
+    
+    snakeControllerBody3 = new snakeNode(
+        1, 4, new Vector2(1, 0)
+    );
+
+    snakeControllerTail = new snakeNode(
+        0, 4, new Vector2(1, 0)
+    );
+
+    snakeControllerList = new snakeController(
+        snakeControllerHead
+    );
+    snakeControllerList.append(snakeControllerBody1);
+    snakeControllerList.append(snakeControllerBody2);
+    snakeControllerList.append(snakeControllerBody3);
+    snakeControllerList.append(snakeControllerTail);
+    allBodys = [snakeControllerBody1, snakeControllerBody2, snakeControllerBody3];
+
 }
 
 function initializeSprites() {
@@ -324,6 +370,10 @@ function initializeSnakeHead() {
         artist
     );
 
+    snakeHeadSprite.attachController(
+        snakeControllerHead
+    );
+
     objectManager.add(snakeHeadSprite);
 }
 
@@ -383,6 +433,11 @@ function initializeSnakeBody() {
                 259
             )
         );
+
+        spriteClone.attachController(
+            allBodys[i-1]
+        );
+
         objectManager.add(spriteClone);
     }
 
@@ -429,7 +484,17 @@ function initializeSnakeTail() {
         artist
     );
 
+    tailSprite.attachController(
+        snakeControllerTail
+    );
+
     objectManager.add(tailSprite);
+}
+
+function resetGame() {
+
+    clearCanvas();
+    startGame();
 }
 
 window.addEventListener("load", start);

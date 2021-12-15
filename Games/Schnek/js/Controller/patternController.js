@@ -7,7 +7,7 @@ class pattern {
         this.updated = updated;
         this.direct = direct;
     }
-
+    
     get grass_tile() {
         return this.grass_tile;
     }

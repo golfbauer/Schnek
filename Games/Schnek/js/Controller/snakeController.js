@@ -1,72 +1,61 @@
-class snake {
-    constructor(next, prev, x_pat, y_pat, snake_type, direct, len) {
-        this.next = next;
-        this.prev = prev;
+class snakeNode {
+    constructor(x_pat, y_pat, direct) {
+        this.next = null;
+        this.prev = null;
         this.x_pat = x_pat;
         this.y_pat = y_pat;
-        this.snake_type = snake_type;
         this.direct = direct;
-        this.len = len;
+        
+        this.currentMoveIncrement = 0;
+        this.timeSinceLastMoveInMs = 0;
+        this.move_interval = 1000;
+        
     }
 
-    constructor(next, prev, x_pat, y_pat, snake_type, direct) {
-        this.next = next;
-        this.prev = prev;
-        this.x_pat = x_pat;
-        this.y_pat = y_pat;
-        this.snake_type = snake_type;
-        this.direct = direct;
+    update(gameTime, parent) {
+        if(this.timeSinceLastMoveInMs >= this.move_interval) {
+            let translateBy = new Vector2(
+                this.direct.x * 60,
+                this.direct.y * 60,
+            );
+            this.x_pat = this.x_pat+this.direct.x;
+            this.y_pat = this.y_pat+this.direct.y;
+
+            parent.transform.translateBy(translateBy);
+
+            this.timeSinceLastMoveInMs = 0;
+
+            this.currentMoveIncrement++;
+        }
+
+        this.timeSinceLastMoveInMs += gameTime.elapsedTimeInMs;
+    }
+}
+class snakeController {
+    constructor(snakeNodeHead) {
+        this.head = snakeNodeHead;
+        this.length = 1;
+        this.tail = this.head;
     }
 
-    constructor(next, prev, x_pat, y_pat, snake_type) {
-        this.next = next;
-        this.prev = prev;
-        this.x_pat = x_pat;
-        this.y_pat = y_pat;
-        this.snake_type = snake_type;
+    printList() {
+        let array = [];
+        let currentList = this.head;
+        while (currentList !== null) {
+            array.push(currentList.direct);
+            currentList = currentList.next;
+        }
+
+        console.log(array.join(' <--> '));
+        return this;
     }
 
-    get next() {
-        return this.next;
-    }
-    get prev() {
-        return this.prev;
-    }
-    get x_pat() {
-        return this.x_pat;
-    }
-    get y_pat() {
-        return this.y_pat;
-    }
-    get snake_type() {
-        return this.snake_type;
-    }
-    get direct() {
-        return this.direct;
-    }
-    get len() {
-        return this.len;
-    }
+    append(newNode) {
+        this.tail.next = newNode;
+        newNode.previous = this.tail;
+        this.tail = newNode;
 
-    set next(next) {
-        this.next = next;
-    }
-    set prev(prev) {
-        this.prev = prev;
-    }
-    set x_pat(x_pat) {
-        this.x_pat = x_pat;
-    }
-    set y_pat(y_pat) {
-        this.y_pat = y_pat;
-    }
-    set snake_type(snake_type) {
-        this.snake_type = snake_type;
-    }
-    set direct(direct) {
-        this.direct = direct;
-    }
-    set len(len) {
-        this.len = len;
+        this.length++;
+        this.printList();
     }
 }
