@@ -136,7 +136,7 @@ class Vector2 {
 
     equals(otherVector) {
         return (
-            GDUtility.IsSameTypeAsTarget(this, otherVector) &&
+            GDUtilities.IsSameTypeAsTarget(this, otherVector) &&
             this.x === otherVector.x &&
             this.y === otherVector.y
         );

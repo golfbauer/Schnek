@@ -16,15 +16,16 @@ let snakeSpriteSheet;
 
 let cameraManager;
 let objectManager;
+let keyboardManager;
 
-let snakeControllerList;
+let snakeNodeList;
 
-let snakeControllerHead;
-let snakeControllerBody1;
-let snakeControllerBody2;
-let snakeControllerBody3;
-let allBodys;
-let snakeControllerTail;
+let snakeNodeHead;
+let snakeNodeBody1;
+let snakeNodeBody2;
+let snakeNodeBody3;
+let allMainBodys;
+let snakeNodeTail;
 
 function start() {
 
@@ -69,7 +70,6 @@ function clearCanvas() {
     context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
 }
 
-
 function update(gameTime) {
 
     // Call the update method of the object manager class
@@ -95,7 +95,7 @@ function initialize() {
     initializeNotificationCenter();
     initializeManagers();
     initializeCameras();
-    initializeSnakeController();
+    initializeSnakeList();
     initializeSprites();
 }
 
@@ -116,6 +116,8 @@ function initializeManagers() {
         StatusType.Drawn | StatusType.Updated,
         cameraManager
     );
+    
+    keyboardManager = new KeyboardManager();
 }
 
 function initializeCameras() {
@@ -144,36 +146,38 @@ function initializeCameras() {
     cameraManager.add(camera);
 }
 
-function initializeSnakeController() {
+function initializeSnakeList() {
 
-    snakeControllerHead = new snakeNode(
-        4, 4, new Vector2(1, 0)
+    snakeNodeHead = new snakeNode(
+        0, 4, 4, new Vector2(1, 0)
     );
     
-    snakeControllerBody1 = new snakeNode(
-        3, 4, new Vector2(1, 0)
+    snakeNodeBody1 = new snakeNode(
+        1, 3, 4, new Vector2(1, 0)
     );
     
-    snakeControllerBody2 = new snakeNode(
-        2, 4, new Vector2(1, 0)
+    snakeNodeBody2 = new snakeNode(
+        2, 2, 4, new Vector2(1, 0)
     );
     
-    snakeControllerBody3 = new snakeNode(
-        1, 4, new Vector2(1, 0)
+    snakeNodeBody3 = new snakeNode(
+        3, 1, 4, new Vector2(1, 0)
     );
 
-    snakeControllerTail = new snakeNode(
-        0, 4, new Vector2(1, 0)
+    snakeNodeTail = new snakeNode(
+        4, 0, 4, new Vector2(1, 0)
     );
 
-    snakeControllerList = new snakeController(
-        snakeControllerHead
+    
+    snakeNodeList = new snakeList(
+        snakeNodeHead
     );
-    snakeControllerList.append(snakeControllerBody1);
-    snakeControllerList.append(snakeControllerBody2);
-    snakeControllerList.append(snakeControllerBody3);
-    snakeControllerList.append(snakeControllerTail);
-    allBodys = [snakeControllerBody1, snakeControllerBody2, snakeControllerBody3];
+
+    snakeNodeList.append(snakeNodeBody1);
+    snakeNodeList.append(snakeNodeBody2);
+    snakeNodeList.append(snakeNodeBody3);
+    snakeNodeList.append(snakeNodeTail);
+    allMainBodys = [snakeNodeBody1, snakeNodeBody2, snakeNodeBody3];
 
 }
 
@@ -330,23 +334,21 @@ function initializeGrassTiles() {
     }
 }
 
-function initializeSnakeHead() {
+function initializeSnakeTail() {
     let transform = null;
     let artist = null;
-
-    let snakeHeadSprite = null;
-
+    
     transform = new Transform2D(
         new Vector2(
-            240,
-            249
+            0,
+            259
         ),
-        -Math.PI/2, //TODO: wont rotate for some reason
+        0,
         Vector2.One,
         Vector2.Zero,
         new Vector2(
-            43,
-            43
+            60,
+            22
         )
     );
 
@@ -354,15 +356,18 @@ function initializeSnakeHead() {
         context,
         snakeSpriteSheet,
         1,
-        Vector2.Zero,
         new Vector2(
-            43,
-            43
+            1,
+            69
+        ),
+        new Vector2(
+            60,
+            22
         )
     );
 
-    snakeHeadSprite = new Sprite(
-        "SnakeHead",
+    let tailSprite = new Sprite(
+        "SnakeBodyTail",
         transform,
         ActorType.Player,
         null,
@@ -370,11 +375,14 @@ function initializeSnakeHead() {
         artist
     );
 
-    snakeHeadSprite.attachController(
-        snakeControllerHead
+    tailSprite.attachController(
+        new snakeNodeController(
+            4,
+            snakeNodeList
+        )
     );
 
-    objectManager.add(snakeHeadSprite);
+    objectManager.add(tailSprite);
 }
 
 function initializeSnakeBody() {
@@ -435,7 +443,10 @@ function initializeSnakeBody() {
         );
 
         spriteClone.attachController(
-            allBodys[i-1]
+            new snakeNodeController(
+                4-i,
+                snakeNodeList
+            )
         );
 
         objectManager.add(spriteClone);
@@ -443,21 +454,23 @@ function initializeSnakeBody() {
 
 }
 
-function initializeSnakeTail() {
+function initializeSnakeHead() {
     let transform = null;
     let artist = null;
-    
+
+    let snakeHeadSprite = null;
+
     transform = new Transform2D(
         new Vector2(
-            0,
-            259
+            240,
+            249
         ),
-        0,
+        -Math.PI/2, //TODO: wont rotate for some reason
         Vector2.One,
         Vector2.Zero,
         new Vector2(
-            60,
-            22
+            43,
+            43
         )
     );
 
@@ -465,18 +478,15 @@ function initializeSnakeTail() {
         context,
         snakeSpriteSheet,
         1,
+        Vector2.Zero,
         new Vector2(
-            1,
-            69
-        ),
-        new Vector2(
-            60,
-            22
+            43,
+            43
         )
     );
 
-    let tailSprite = new Sprite(
-        "SnakeBodyTail",
+    snakeHeadSprite = new Sprite(
+        "SnakeHead",
         transform,
         ActorType.Player,
         null,
@@ -484,11 +494,25 @@ function initializeSnakeTail() {
         artist
     );
 
-    tailSprite.attachController(
-        snakeControllerTail
+    snakeHeadSprite.attachController(
+        new snakeMovementController(
+            keyboardManager,
+            snakeNodeList
+        )
     );
 
-    objectManager.add(tailSprite);
+    snakeHeadSprite.attachController(
+        new snakeNodeController(
+            0,
+            snakeNodeList
+        )
+    );
+
+    objectManager.add(snakeHeadSprite);
+}
+
+function initializeSnakeControllers() {
+
 }
 
 function resetGame() {
