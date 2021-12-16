@@ -1,11 +1,12 @@
 class snakeNode {
-    constructor(id, x_pat, y_pat, direct) {
+    constructor(id, x_pat, y_pat, direct, sprite) {
         this.id = id;
         this.next = null;
         this.prev = null;
         this.x_pat = x_pat;
         this.y_pat = y_pat;
         this.direct = direct;
+        this.sprite = sprite;
     }
 
     set direct(direct) {
@@ -14,6 +15,14 @@ class snakeNode {
 
     set priv(priv) {
         this._priv = priv;
+    }
+
+    set sprite(sprite) {
+        this._sprite = sprite;
+    }
+
+    get sprite() {
+        return this._sprite;
     }
 
     get direct() {

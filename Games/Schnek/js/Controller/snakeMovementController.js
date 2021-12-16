@@ -7,7 +7,6 @@ class snakeMovementController {
 
     update(gameTime, parent) {
         if (this.keyboardManager.isAnyKeyPressed()) {
-            this.snakeNodeList.head.next.direct = this.snakeNodeList.head.direct.clone();
             if (this.keyboardManager.isKeyDown(Keys.A) && !new Vector2(-1, 0).equals(this.snakeNodeList.head.direct)) {
                 this.snakeNodeList.head.direct.x = -1;
                 this.snakeNodeList.head.direct.y = 0;

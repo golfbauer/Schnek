@@ -375,12 +375,7 @@ function initializeSnakeTail() {
         artist
     );
 
-    tailSprite.attachController(
-        new snakeNodeController(
-            4,
-            snakeNodeList
-        )
-    );
+    snakeNodeTail.sprite = tailSprite;
 
     objectManager.add(tailSprite);
 }
@@ -442,12 +437,7 @@ function initializeSnakeBody() {
             )
         );
 
-        spriteClone.attachController(
-            new snakeNodeController(
-                4-i,
-                snakeNodeList
-            )
-        );
+        allMainBodys[3-i].sprite = spriteClone;
 
         objectManager.add(spriteClone);
     }
@@ -501,9 +491,10 @@ function initializeSnakeHead() {
         )
     );
 
+    snakeNodeHead.sprite = snakeHeadSprite;
+
     snakeHeadSprite.attachController(
         new snakeNodeController(
-            0,
             snakeNodeList
         )
     );
