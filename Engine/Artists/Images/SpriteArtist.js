@@ -61,6 +61,16 @@ class SpriteArtist extends Artist {
         // Set the objects transparency
         this.context.globalAlpha = this.alpha;
 
+        this.context.translate(
+            transform.translation.x + transform.origin.x + this.sourceDimensions.x/2,
+            transform.translation.y + transform.origin.y + this.sourceDimensions.y/2
+        );
+        this.context.rotate(parent.transform.rotationInRadians);
+        this.context.translate(
+            -this.sourceDimensions.x/2 - transform.origin.x - transform.translation.x,
+            -this.sourceDimensions.y/2 - transform.translation.y - transform.origin.y
+        );
+
         // Draw image
         this.context.drawImage(
             this.spriteSheet,
