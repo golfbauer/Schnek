@@ -4,20 +4,21 @@ class snakeNodeController {
         this.snakeNodeList = snakeNodeList;
 
         this.currentMoveIncrement = 0;
+        this.currentDirectionIncrement = 0;
         this.timeSinceLastMoveInMs = 0;
-        this.move_interval = 1500;
+        this.timeSinceDirectionChangeInMs = 0;
+        this.move_interval = 200;
     }
 
     update(gameTime, parent) {
-
         if (this.timeSinceLastMoveInMs >= this.move_interval) {
             let currentNode = this.snakeNodeList.tail;
 
             while(currentNode != null) {
 
                 let translateBy = new Vector2(
-                    currentNode.direct.x * 60,
-                    currentNode.direct.y * 60,
+                    currentNode.direct.x * 40,
+                    currentNode.direct.y * 40,
                 );
                 currentNode.x_pat = currentNode.x_pat + currentNode.direct.x;
                 currentNode.y_pat = currentNode.y_pat + currentNode.direct.y;

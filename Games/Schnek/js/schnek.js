@@ -207,22 +207,22 @@ function initializeGrassTiles() {
         Vector2.One,
         Vector2.Zero,
         new Vector2(
-            60,
-            60
+            40,
+            40
         )
     );
 
     transformDark = new Transform2D(
         new Vector2(
-            60, 
+            40, 
             0
         ),
         0,
         Vector2.One,
         Vector2.Zero,
         new Vector2(
-            60,
-            60
+            40,
+            40
         )
     );
 
@@ -236,8 +236,8 @@ function initializeGrassTiles() {
             55      
         ),
         new Vector2(
-            60,     //TODO: make constants
-            60
+            40,     //TODO: make constants
+            40
         )
     );
 
@@ -250,8 +250,8 @@ function initializeGrassTiles() {
             50      
         ),
         new Vector2(
-            60,     //TODO: make constants
-            60
+            40,     //TODO: make constants
+            40
         )
     );
 
@@ -273,8 +273,8 @@ function initializeGrassTiles() {
         artistDark
     );
 
-    for (let i = 0; i < 10; i++) {
-        for (let j = 0; j < 10; j++) {
+    for (let i = 0; i < 17; i++) {
+        for (let j = 0; j < 15; j++) {
             if (i%2 == 0) {
                 grassLightClone = grassArchetypeLight.clone();
                 grassDarkClone = grassArchetypeDark.clone();
@@ -284,8 +284,8 @@ function initializeGrassTiles() {
 
                 grassLightClone.transform.setTranslation(
                     new Vector2(
-                        i*60,
-                        j*60
+                        i*40,
+                        j*40
                     )
                 );
                 objectManager.add(grassLightClone);
@@ -297,8 +297,8 @@ function initializeGrassTiles() {
 
                 grassDarkClone.transform.setTranslation(
                     new Vector2(
-                        i*60,
-                        j*60
+                        i*40,
+                        j*40
                     )
                 );
                 objectManager.add(grassDarkClone);
@@ -311,8 +311,8 @@ function initializeGrassTiles() {
 
                 grassDarkClone.transform.setTranslation(
                     new Vector2(
-                        i*60,
-                        j*60
+                        i*40,
+                        j*40
                     )
                 );
                 objectManager.add(grassDarkClone);
@@ -324,8 +324,8 @@ function initializeGrassTiles() {
 
                 grassLightClone.transform.setTranslation(
                     new Vector2(
-                        i*60,
-                        j*60
+                        i*40,
+                        j*40
                     )
                 );    
                 objectManager.add(grassLightClone);            
@@ -341,13 +341,13 @@ function initializeSnakeTail() {
     transform = new Transform2D(
         new Vector2(
             0,
-            259
+            289
         ),
         0,
         Vector2.One,
         Vector2.Zero,
         new Vector2(
-            60,
+            40,
             22
         )
     );
@@ -361,7 +361,7 @@ function initializeSnakeTail() {
             69
         ),
         new Vector2(
-            60,
+            40,
             22
         )
     );
@@ -389,14 +389,14 @@ function initializeSnakeBody() {
 
     transform = new Transform2D(
         new Vector2(
-            180,
-            249
+            120,
+            289
         ),
         0,
         Vector2.One,
         Vector2.Zero,
         new Vector2(
-            60,
+            40,
             22
         )
     );
@@ -410,7 +410,7 @@ function initializeSnakeBody() {
             44
         ),
         new Vector2(
-            60,
+            40,
             22
         )
     );
@@ -432,8 +432,8 @@ function initializeSnakeBody() {
 
         spriteClone.transform.setTranslation(
             new Vector2(
-                60*i,
-                259
+                40*i,
+                289
             )
         );
 
@@ -452,8 +452,8 @@ function initializeSnakeHead() {
 
     transform = new Transform2D(
         new Vector2(
-            240,
-            249
+            160,
+            279
         ),
         -Math.PI/2, //TODO: wont rotate for some reason
         Vector2.One,
