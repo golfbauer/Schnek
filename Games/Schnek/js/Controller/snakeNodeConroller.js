@@ -7,7 +7,7 @@ class snakeNodeController {
         this.currentDirectionIncrement = 0;
         this.timeSinceLastMoveInMs = 0;
         this.timeSinceDirectionChangeInMs = 0;
-        this.move_interval = 1000;
+        this.move_interval = 300;
     }
 
     update(gameTime, parent) {
@@ -33,6 +33,10 @@ class snakeNodeController {
                 }
                 currentNode = currentNode.prev;
             }
+
+            console.log("SnakeHead x: " + this.snakeNodeList.head.x_pat);
+            console.log("SnakeHead y: " + this.snakeNodeList.head.y_pat);
+            console.log("---------------")
 
             this.timeSinceLastMoveInMs = 0;
 

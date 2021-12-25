@@ -8,15 +8,14 @@
             "name": "Launch Chrome",
             "request": "launch",
             "type": "pwa-chrome",
-            "url": "http://127.0.0.1:5500/Games/Schnek/schnek.html",
-            "webRoot": "${workspaceFolder}"
+            "file": "${workspaceFolder}/Games/Schnek/schnek.html"
         },
 
         {
             "type": "pwa-chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://127.0.0.1:5500/Games/Schnek/schnek.html",
+            "url": "http://localhost:8080/Games/Schnek/schnek.html",
             "webRoot": "${workspaceFolder}"
         }
     ]

@@ -13,6 +13,7 @@ let notificationCenter;
 
 let grassTileSpriteSheet;
 let snakeSpriteSheet;
+let foodSpriteSheet;
 
 let cameraManager;
 let objectManager;
@@ -88,6 +89,7 @@ function loadAssets() {
 function loadSprites() {
     grassTileSpriteSheet = document.getElementById("grass_tile_sprite");
     snakeSpriteSheet = document.getElementById("snake_sprite");
+    foodSpriteSheet = document.getElementById("food_sprite");
 
 }
 
@@ -149,23 +151,23 @@ function initializeCameras() {
 function initializeSnakeList() {
 
     snakeNodeHead = new snakeNode(
-        0, 4, 4, new Vector2(1, 0)
+        0, 4, 7, new Vector2(1, 0)
     );
     
     snakeNodeBody1 = new snakeNode(
-        1, 3, 4, new Vector2(1, 0)
+        1, 3, 7, new Vector2(1, 0)
     );
     
     snakeNodeBody2 = new snakeNode(
-        2, 2, 4, new Vector2(1, 0)
+        2, 2, 7, new Vector2(1, 0)
     );
     
     snakeNodeBody3 = new snakeNode(
-        3, 1, 4, new Vector2(1, 0)
+        3, 1, 7, new Vector2(1, 0)
     );
 
     snakeNodeTail = new snakeNode(
-        4, 0, 4, new Vector2(1, 0)
+        4, 0, 7, new Vector2(1, 0)
     );
 
     
@@ -186,6 +188,7 @@ function initializeSprites() {
     initializeSnakeHead();
     initializeSnakeBody();
     initializeSnakeTail();
+    initializeFood();
 }
 
 function initializeGrassTiles() {
@@ -504,6 +507,55 @@ function initializeSnakeHead() {
 
 function initializeSnakeControllers() {
 
+}
+
+function initializeFood() {
+    let transform = null;
+    let artist = null;
+
+    let foodSprite;
+
+    transform = new Transform2D(
+        new Vector2(
+            Math.floor(Math.random() * 17)*40+5,
+            Math.floor(Math.random() * 15)*40+5 
+        ),
+        0, 
+        Vector2.One,
+        Vector2.Zero,
+        new Vector2(
+            30,
+            30
+        )
+    );
+
+    artist = new SpriteArtist(
+        context,
+        foodSpriteSheet,
+        1,
+        Vector2.Zero,
+        new Vector2(
+            830,
+            568
+        )
+    );
+
+    foodSprite = new Sprite(
+        "Food",
+        transform,
+        ActorType.Pickup,
+        null,
+        StatusType.Updated | StatusType.Drawn,
+        artist
+    );
+
+    foodSprite.attachController(
+        new eatingFoodController(
+            snakeNodeList
+        )
+    );
+
+    objectManager.add(foodSprite);
 }
 
 function resetGame() {

@@ -81,4 +81,14 @@ class snakeList {
         }
         throw "Error: Id does not exist in Doubly Linked List";
     }
+
+    getAllLocations() {
+        let array = [];
+        let currentList = this.head;
+        while (currentList !== null) {
+            array.push(new Vector2(currentList.x_pat, currentList.y_pat));
+            currentList = currentList.next;
+        }
+        return array;
+    }
 }
