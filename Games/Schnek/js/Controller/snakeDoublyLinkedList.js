@@ -63,18 +63,10 @@ class snakeList {
         this.printList();
     }
 
-    iterateBackwards() {
-        let tempNode = this.tail;
-        while(tempNode.prev != null) {
-          tempNode.direct = tempNode.prev.direct.clone();
-          tempNode = tempNode.prev;
-        }
-    }
-
     getById(newId) {
         let currentNode = this.head;
         while (currentNode !== null) {
-            if(currentNode.id == newId) {
+            if (currentNode.id == newId) {
                 return currentNode;
             }
             currentNode = currentNode.next;
@@ -82,7 +74,7 @@ class snakeList {
         throw "Error: Id does not exist in Doubly Linked List";
     }
 
-    getAllLocations() {
+    getAllPositions() {
         let array = [];
         let currentList = this.head;
         while (currentList !== null) {

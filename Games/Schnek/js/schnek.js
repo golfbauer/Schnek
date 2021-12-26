@@ -210,22 +210,22 @@ function initializeGrassTiles() {
         Vector2.One,
         Vector2.Zero,
         new Vector2(
-            BoardData.GRASS_TILE_WIDTH,
-            BoardData.GRASS_TILE_HIGHT
+            BoardData.GRASS_TILE_X,
+            BoardData.GRASS_TILE_Y
         )
     );
 
     transformDark = new Transform2D(
         new Vector2(
-            BoardData.GRASS_TILE_WIDTH, 
+            BoardData.GRASS_TILE_X, 
             0
         ),
         0,
         Vector2.One,
         Vector2.Zero,
         new Vector2(
-            BoardData.GRASS_TILE_WIDTH,
-            BoardData.GRASS_TILE_HIGHT
+            BoardData.GRASS_TILE_X,
+            BoardData.GRASS_TILE_Y
         )
     );
 
@@ -239,8 +239,8 @@ function initializeGrassTiles() {
             55      
         ),
         new Vector2(
-            BoardData.GRASS_TILE_WIDTH,     
-            BoardData.GRASS_TILE_HIGHT
+            BoardData.GRASS_TILE_X,     
+            BoardData.GRASS_TILE_Y
         )
     );
 
@@ -253,8 +253,8 @@ function initializeGrassTiles() {
             50      
         ),
         new Vector2(
-            BoardData.GRASS_TILE_WIDTH,     
-            BoardData.GRASS_TILE_HIGHT
+            BoardData.GRASS_TILE_X,     
+            BoardData.GRASS_TILE_Y
         )
     );
 
@@ -287,8 +287,8 @@ function initializeGrassTiles() {
 
                 grassLightClone.transform.setTranslation(
                     new Vector2(
-                        i*BoardData.GRASS_TILE_WIDTH,
-                        j*BoardData.GRASS_TILE_HIGHT
+                        i*BoardData.GRASS_TILE_X,
+                        j*BoardData.GRASS_TILE_Y
                     )
                 );
                 objectManager.add(grassLightClone);
@@ -300,8 +300,8 @@ function initializeGrassTiles() {
 
                 grassDarkClone.transform.setTranslation(
                     new Vector2(
-                        i*BoardData.GRASS_TILE_WIDTH,
-                        j*BoardData.GRASS_TILE_HIGHT
+                        i*BoardData.GRASS_TILE_X,
+                        j*BoardData.GRASS_TILE_Y
                     )
                 );
                 objectManager.add(grassDarkClone);
@@ -314,8 +314,8 @@ function initializeGrassTiles() {
 
                 grassDarkClone.transform.setTranslation(
                     new Vector2(
-                        i*BoardData.GRASS_TILE_WIDTH,
-                        j*BoardData.GRASS_TILE_HIGHT
+                        i*BoardData.GRASS_TILE_X,
+                        j*BoardData.GRASS_TILE_Y
                     )
                 );
                 objectManager.add(grassDarkClone);
@@ -327,8 +327,8 @@ function initializeGrassTiles() {
 
                 grassLightClone.transform.setTranslation(
                     new Vector2(
-                        i*BoardData.GRASS_TILE_WIDTH,
-                        j*BoardData.GRASS_TILE_HIGHT
+                        i*BoardData.GRASS_TILE_X,
+                        j*BoardData.GRASS_TILE_Y
                     )
                 );    
                 objectManager.add(grassLightClone);            
@@ -344,14 +344,14 @@ function initializeSnakeTail() {
     transform = new Transform2D(
         new Vector2(
             0,
-            289
+            280
         ),
         0,
         Vector2.One,
         Vector2.Zero,
         new Vector2(
-            BoardData.GRASS_TILE_WIDTH,
-            22
+            BoardData.GRASS_TILE_X,
+            BoardData.GRASS_TILE_Y
         )
     );
 
@@ -361,11 +361,11 @@ function initializeSnakeTail() {
         1,
         new Vector2(
             1,
-            69
+            60
         ),
         new Vector2(
-            BoardData.GRASS_TILE_WIDTH,
-            22
+            BoardData.GRASS_TILE_X,
+            BoardData.GRASS_TILE_Y
         )
     );
 
@@ -399,8 +399,8 @@ function initializeSnakeBody() {
         Vector2.One,
         Vector2.Zero,
         new Vector2(
-            BoardData.GRASS_TILE_WIDTH,
-            BoardData.GRASS_TILE_HIGHT
+            BoardData.GRASS_TILE_X,
+            BoardData.GRASS_TILE_Y
         )
     );
 
@@ -413,13 +413,13 @@ function initializeSnakeBody() {
             15
         ),
         new Vector2(
-            BoardData.GRASS_TILE_WIDTH,
-            BoardData.GRASS_TILE_HIGHT
+            BoardData.GRASS_TILE_X,
+            BoardData.GRASS_TILE_Y
         )
     );
 
     spriteArchetype = new Sprite(
-        "SnakeBodyStraight",
+        "SnakeBody",
         transform,
         ActorType.Player,
         null,
@@ -435,7 +435,7 @@ function initializeSnakeBody() {
 
         spriteClone.transform.setTranslation(
             new Vector2(
-                BoardData.GRASS_TILE_WIDTH*i,
+                BoardData.GRASS_TILE_X*i,
                 280
             )
         );
@@ -505,10 +505,6 @@ function initializeSnakeHead() {
     objectManager.add(snakeHeadSprite);
 }
 
-function initializeSnakeControllers() {
-
-}
-
 function initializeFood() {
     let transform = null;
     let artist = null;
@@ -517,8 +513,8 @@ function initializeFood() {
 
     transform = new Transform2D(
         new Vector2(
-            Math.floor(Math.random() * 17)*40+5,
-            Math.floor(Math.random() * 15)*40+5 
+            Math.floor(Math.random() * BoardData.GRASS_TILE_X)*BoardData.BOARD_X_TILES+5,
+            Math.floor(Math.random() * BoardData.GRASS_TILE_Y)*BoardData.BOARD_Y_TILES+5 
         ),
         0, 
         Vector2.One,
@@ -551,7 +547,10 @@ function initializeFood() {
 
     foodSprite.attachController(
         new eatingFoodController(
-            snakeNodeList
+            snakeNodeList,
+            objectManager,
+            context,
+            snakeSpriteSheet
         )
     );
 
