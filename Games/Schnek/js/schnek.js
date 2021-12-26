@@ -513,8 +513,8 @@ function initializeFood() {
 
     transform = new Transform2D(
         new Vector2(
-            Math.floor(Math.random() * BoardData.GRASS_TILE_X)*BoardData.BOARD_X_TILES+5,
-            Math.floor(Math.random() * BoardData.GRASS_TILE_Y)*BoardData.BOARD_Y_TILES+5 
+            Math.floor(Math.random() * BoardData.BOARD_X_TILES)*BoardData.GRASS_TILE_X+5,
+            Math.floor(Math.random() * BoardData.BOARD_Y_TILES)*BoardData.GRASS_TILE_Y+5 
         ),
         0, 
         Vector2.One,
