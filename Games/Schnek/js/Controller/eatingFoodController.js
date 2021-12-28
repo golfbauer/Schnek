@@ -90,10 +90,11 @@ class eatingFoodController {
 
         newTail.sprite = bodySprite;
 
-        tail.sprite.artist.sourcePosition = new Vector2(65, 15);
-        tail.sprite.artist.sourceDimensions = new Vector2(BoardData.GRASS_TILE_X, BoardData.GRASS_TILE_Y);
-
         this.objectManager.add(bodySprite);
 
+        let tailDir = tail.prev.direct.x == 0 ? tail.prev.direct.y : tail.prev.direct.x - 1;
+        tail.sprite.transform.setRotationInRadians(tailDir * Math.PI / 2);
+        tail.sprite.artist.sourcePosition = new Vector2(65, 15);
+        tail.sprite.artist.sourceDimensions = new Vector2(BoardData.GRASS_TILE_X, BoardData.GRASS_TILE_Y);
     }
 }

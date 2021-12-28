@@ -60,7 +60,6 @@ class snakeList {
         this.tail = newNode;
 
         this.length++;
-        this.printList();
     }
 
     getById(newId) {
@@ -82,5 +81,13 @@ class snakeList {
             currentList = currentList.next;
         }
         return array;
+    }
+
+    stopSnake() {
+        let currentList = this.head;
+        while (currentList !== null) {
+            currentList.direct = Vector2.Zero;
+            currentList = currentList.next;
+        }
     }
 }
