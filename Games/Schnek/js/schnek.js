@@ -119,7 +119,9 @@ function initializeManagers() {
         cameraManager
     );
     
-    keyboardManager = new KeyboardManager();
+    keyboardManager = new KeyboardManager(
+        "Keyboard Manager"
+    );
 }
 
 function initializeCameras() {

@@ -1,63 +1,106 @@
-<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
 
-        <title>Schnek</title>
-        <link rel="stylesheet" href="css/style.css" />
-    </head>
+<head>
+    <title>Schnek</title>
 
-    <body>
+    <!-- Include Stylesheets -->
+    <link rel="stylesheet" href="css/style.css" />
 
-        <!-- Create Canvas inside div -->
-        <div class="center-screen">
-            <canvas id="main_canvas" width="680" height="600"></canvas>
+    <!-- Add JQuery Support -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Create Title -->
+    <div id="title">
+        <h1>Schnek</h1>
+    </div>
+
+    <!-- Create Game Window -->
+    <div id="game_window" class="wrapper">
+
+        <!-- Create Menus -->
+        <div id="menu_block">
+
+            <!-- Main Menu -->
+            <div id="main_menu" class="menu">
+                <h1>Schnek</h1>
+                <ul>
+                    <li><a href="javascript:void(0)" class="button play">Start Game</a></li>
+                    <li><a href="javascript:void(0)" id="audio_button" class="button">Toggle Audio</a></li>
+                    <li><a href="javascript:void(0)" class="button control">Control Menu</a></li>
+                    <li><a href="javascript:void(0)" class="button exit">Exit Game</a></li>
+                </ul>
+            </div>
+
+            <!-- Exit Menu -->
+            <div id="exit_menu" class="menu hidden">
+                <h1>Thanks for playing!</h1>
+            </div>
+
+            <!-- Control Menu -->
+            <div id="control_menu" class="menu hidden">
+                <h1>This is the control menu!</h1>
+            </div>
+
+            <!-- Add More Menu's Here -->
+
+            <!-- 
+                Check out the initialize function of MyMenuManager to see how menu's are
+                hidden when the game starts.
+            -->
         </div>
 
-        <!-- Load Sprite Assets -->
-        <img id="grass_tile_sprite" class="spriteSheet" src="assets/images/GrassTiles.png">
-        <img id="snake_sprite" class="spriteSheet" src="assets/images/SnakeCropped.png">
-        <img id="food_sprite" class="spriteSheet" src="assets/images/Food.png">
+        <!-- Create Canvas -->
+        <canvas id="main_canvas" width="680" height="600"></canvas>
+    </div>
 
-        <!-- Load Audio Assets -->
+    <!-- Load Sprite Assets -->
+    <img id="grass_tile_sprite" class="sprite" src="assets/images/GrassTiles.png">
+    <img id="snake_sprite" class="sprite" src="assets/images/SnakeCropped.png">
+    <img id="food_sprite" class="sprite" src="assets/images/Food.png">
 
-        <!-- Load Engine Scripts -->
-        <script src="../../Engine/Constants/Constants.js"></script>
-        <script src="../../Engine/Time/GameTime.js"></script>
+    <!-- Load Audio Assets -->
 
-        <script src="../../Engine/Utilities/GDUtilities.js"></script>
-     
-        <script src="../../Engine/Types/Vector2.js"></script>
-        <script src="../../Engine/Types/Transform2D.js"></script>
-     
-        <script src="../../Engine/Types/Rect.js"></script>
-        <script src="../../Engine/Types/Arc.js"></script>
-     
-        <script src="../../Engine/Actors/Base/Actor2D.js"></script>
-        <script src="../../Engine/Actors/Sprites/Sprite.js"></script>
-        <script src="../../Engine/Actors/Cameras/Camera2D.js"></script>
-        
-        <script src="../../Engine/Artists/Base/Artist.js"></script>
-        <script src="../../Engine/Artists/Images/SpriteArtist.js"></script>
-        <script src="../../Engine/Artists/Images/ScrollingSpriteArtist.js"></script>
-        <script src="../../Engine/Artists/Images/AnimatedSpriteArtist.js"></script>
-     
-        <script src="../../Engine/Notification/NotificationCenter.js"></script>
-        
-        <script src="../../Engine/Managers/CameraManager.js"></script>
-        <script src="../../Engine/Managers/ObjectManager.js"></script>
-        <script src="../../Engine/Managers/KeyboardManager.js"></script>
-        <script src="../../Engine/Managers/SoundManager.js"></script>
-     
-        <!-- Load Game Scripts -->
-        <script src="js/Controller/snakeDoublyLinkedList.js"></script>
-        <script src="js/Controller/snakeNodeConroller.js"></script>
-        <script src="js/Controller/snakeMovementController.js"></script> 
-        <script src="js/Controller/patternController.js"></script>
-        <script src="js/Controller/eatingFoodController.js"></script>
-        <script src="js/Constants/constants.js"></script>
+    <!-- Load Engine Scripts -->
+    <script src="../../Engine/Constants/Constants.js"></script>
+    <script src="../../Engine/Time/GameTime.js"></script>
 
-        <!-- Load Game -->
-        <script src="js/schnek.js"></script>
-    </body>
+    <script src="../../Engine/Utilities/GDUtilities.js"></script>
+
+    <script src="../../Engine/Types/Vector2.js"></script>
+    <script src="../../Engine/Types/Transform2D.js"></script>
+
+    <script src="../../Engine/Types/Rect.js"></script>
+    <script src="../../Engine/Types/Arc.js"></script>
+
+    <script src="../../Engine/Actors/Base/Actor2D.js"></script>
+    <script src="../../Engine/Actors/Sprites/Sprite.js"></script>
+    <script src="../../Engine/Actors/Cameras/Camera2D.js"></script>
+
+    <script src="../../Engine/Artists/Base/Artist.js"></script>
+    <script src="../../Engine/Artists/Images/SpriteArtist.js"></script>
+    <script src="../../Engine/Artists/Images/ScrollingSpriteArtist.js"></script>
+    <script src="../../Engine/Artists/Images/AnimatedSpriteArtist.js"></script>
+
+    <script src="../../Engine/Notification/NotificationCenter.js"></script>
+
+    <script src="../../Engine/Managers/CameraManager.js"></script>
+    <script src="../../Engine/Managers/ObjectManager.js"></script>
+    <script src="../../Engine/Managers/KeyboardManager.js"></script>
+    <script src="../../Engine/Managers/SoundManager.js"></script>
+
+    <!-- Load Game Scripts -->
+    <script src="js/Controller/snakeDoublyLinkedList.js"></script>
+    <script src="js/Controller/snakeNodeConroller.js"></script>
+    <script src="js/Controller/snakeMovementController.js"></script>
+    <script src="js/Controller/patternController.js"></script>
+    <script src="js/Controller/eatingFoodController.js"></script>
+    <script src="js/Constants/constants.js"></script>
+
+    <!-- Load Game -->
+    <script src="js/schnek.js"></script>
+</body>
+
 </html>
