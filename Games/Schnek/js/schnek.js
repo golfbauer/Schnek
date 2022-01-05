@@ -524,7 +524,8 @@ function initializeSnakeHead() {
 
     snakeHeadSprite.attachController(
         new snakeNodeController(
-            snakeNodeList
+            snakeNodeList,
+            menuManager
         )
     );
 
@@ -585,7 +586,7 @@ function initializeFood() {
 
 function resetGame() {
     clearCanvas();
-    startGame();
+    start();
 }
 
 window.addEventListener("load", start);

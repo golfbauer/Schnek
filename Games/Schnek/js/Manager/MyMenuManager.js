@@ -83,19 +83,33 @@ class MyMenuManager extends MenuManager {
         $('#exit_menu').hide();
         $('#exit_menu').addClass('hidden');
 
-        // Hide the control menu
-        $('#control_menu').hide();
-        $('#control_menu').addClass('hidden');
+        // Hide Normal Mode Description
+        $('#normalMode_menu').hide();
+        $('#normalMode_menu').addClass('hidden');
+
+        $('#powerUpMode_menu').hide();
+        $('#powerUpMode_menu').addClass('hidden');
+
+        $('#death_menu').hide();
+        $('#death_menu').addClass('hidden');
 
         // Hide the YOUR_MENU menu
         // $('#YOUR_MENU_ID').hide();
         // $('#YOUR_MENU_ID').addClass('hidden');
 
         // If the play button is clicked
-        $('.play').click(function () {
+        $('.normal').click(function () {
 
-            // Hide the menu
             $('#main_menu').hide();
+
+            $('#normalMode_menu').show();
+            $('#normalMode_menu').removeClass('hidden');
+            
+        });
+
+        $('.playNormal').click(function() {
+
+            $('#normalMode_menu').hide();
 
             // Send a notification to update and draw the game
             notificationCenter.notify(
@@ -107,16 +121,37 @@ class MyMenuManager extends MenuManager {
             );
         });
 
-        // If the audio button is clicked
-        // Or more specifically - if an element which has
-        // the audio class is clicked
-        $('#audio_button').click(function () {
+        $('.backNormal').click(function() {
+            $('#normalMode_menu').hide();
+            $('#main_menu').show();
+        })
 
-            // Do something...
+        $('.powerUp').click(function () {
 
-            console.log("You clicked the audio button!");
-            
-            // Hint: Send a notification to toggle the audio on/off
+            // Hide the menu
+            $('#main_menu').hide();
+
+            $('#powerUpMode_menu').show();
+            $('#powerUpMode_menu').removeClass('hidden');
+        });
+
+        $('.playPowerUp').click(function() {
+
+            $('#powerUpMode_menu').hide();
+
+            // Send a notification to update and draw the game
+            notificationCenter.notify(
+                new Notification(
+                    NotificationType.Menu,
+                    NotificationAction.ShowMenuChanged,
+                    [StatusType.Updated | StatusType.Drawn]
+                )
+            );
+        });
+
+        $('.backPowerUp').click(function() {
+            $('#powerUpMode_menu').hide();
+            $('#main_menu').show();
         });
 
         // If the exit button is clicked
@@ -127,14 +162,32 @@ class MyMenuManager extends MenuManager {
             $('#exit_menu').removeClass('hidden');
         });
 
-        // If the control button is clicked
-        $('.control').click(function () {
+        //TODO: restart entire game
+        $('.playAgain').click(function () {
+            resetGame();
+            $('#main_menu').hide();
 
-            // Show control menu
-            $('#control_menu').show();
-            $('#control_menu').removeClass('hidden');
+            notificationCenter.notify(
+                new Notification(
+                    NotificationType.Menu,
+                    NotificationAction.ShowMenuChanged,
+                    [StatusType.Updated | StatusType.Drawn]
+                )
+            );
+        });
+
+        $('.backDeath').click(function () {
+            resetGame();
         });
     }
+
+    death(length, food) {
+        $('#death_menu').show();
+        $('#death_menu').removeClass('hidden');
+        document.getElementById("amount_food").innerHTML = food;
+        document.getElementById("length_snake").innerHTML = length;
+    }
+
 
     update(gameTime) {
 
