@@ -13,6 +13,7 @@ class eatingFoodController {
         let yFood = (parent.transform.translation.y - 5) / BoardData.GRASS_TILE_Y;
         if (snakeHead.x_pat == xFood
             && snakeHead.y_pat == yFood) {
+            this.snakeList.food++;
             parent.transform.setTranslation(this.randomFoodSpot());
             this.extendSnake();
         }

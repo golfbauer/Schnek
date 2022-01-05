@@ -40,6 +40,7 @@ class snakeList {
         this.head = snakeNodeHead;
         this.length = 1;
         this.tail = this.head;
+        this.food = 0;
     }
 
     printList() {
