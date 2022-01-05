@@ -1,6 +1,6 @@
 class MyMenuManager extends MenuManager {
 
-    constructor(id, notificationCenter, keyboardManager) {
+    constructor(id, notificationCenter, keyboardManager, ) {
 
         super(id);
 
@@ -156,13 +156,11 @@ class MyMenuManager extends MenuManager {
 
         // If the exit button is clicked
         $('.exit').click(function () {
-
-            // Show exit menu
             $('#exit_menu').show();
             $('#exit_menu').removeClass('hidden');
         });
 
-        //TODO: restart entire game
+        // If play Again button is clicked after death
         $('.playAgain').click(function () {
             resetGame();
             $('#main_menu').hide();
@@ -176,6 +174,7 @@ class MyMenuManager extends MenuManager {
             );
         });
 
+        // If play Back button is clicked after death
         $('.backDeath').click(function () {
             resetGame();
         });
@@ -186,11 +185,7 @@ class MyMenuManager extends MenuManager {
         $('#death_menu').removeClass('hidden');
         document.getElementById("amount_food").innerHTML = food;
         document.getElementById("length_snake").innerHTML = length;
-    }
 
-
-    update(gameTime) {
-
-        // TO DO: Add code to listen for a 'pause key' press, and show/hide the menu accordingly
+        this.notificationCenter.deregister()
     }
 }

@@ -81,8 +81,7 @@ class snakeNodeController {
 
         if (currentNode.x_pat == head.x_pat + head.direct.x
             && currentNode.y_pat == head.y_pat + head.direct.y) {
-            this.snakeNodeList.stopSnake();
-            this.menuManager.death(this.snakeNodeList.length, this.snakeNodeList.food);
+            this.passingOnInfoAfterCollision();
         }
     }
 
@@ -93,8 +92,13 @@ class snakeNodeController {
             || head.x_pat + head.direct.x < 0
             || head.y_pat + head.direct.y >= BoardData.BOARD_Y_TILES
             || head.y_pat + head.direct.y < 0) {
-            this.snakeNodeList.stopSnake();
-            this.menuManager.death(this.snakeNodeList.length, this.snakeNodeList.food);
+            this.passingOnInfoAfterCollision();
         }
     }
+
+    passingOnInfoAfterCollision() {
+        this.menuManager.death(this.snakeNodeList.length, this.snakeNodeList.food);
+        this.snakeNodeList.head.sprite.detachControllerByID(1);
+    }
+
 }

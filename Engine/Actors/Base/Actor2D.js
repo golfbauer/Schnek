@@ -82,9 +82,11 @@ class Actor2D {
      */
     detachControllerByID(id) {
         for (let i = 0; i < this.controllers.length; i++) {
-            if (this.controllers[i].id.equals(id)) {
+            let count = this.controllers[i];
+            if (i == id) {
                 this.controllers.splice(i, 1);
                 i--;
+                break;
             }
         }
     }
