@@ -18,6 +18,7 @@ let foodSpriteSheet;
 let cameraManager;
 let objectManager;
 let keyboardManager;
+let menuManager;
 
 let snakeNodeList;
 
@@ -38,6 +39,16 @@ function start() {
 
     // Initialize game elements
     initialize();
+
+    // Publish an event to pause the object manager, by setting its StatusType
+    // to off (i.e. no update, no draw). This, in turn, shows the menu.
+    notificationCenter.notify(
+        new Notification(
+            NotificationType.Menu,
+            NotificationAction.ShowMenuChanged,
+            [StatusType.Off]
+        )
+    );
 
     // Start the game loop
     window.requestAnimationFrame(animate);
@@ -68,7 +79,10 @@ function draw(gameTime) {
 }
 
 function clearCanvas() {
-    context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+    context.save();
+    context.fillStyle = "white";
+    context.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+    context.restore();
 }
 
 function update(gameTime) {
@@ -76,6 +90,10 @@ function update(gameTime) {
     // Call the update method of the object manager class
     // to update all sprites
     objectManager.update(gameTime);
+
+    // Call the update method of the menu manager class to
+    // check for menu state changes
+    menuManager.update(gameTime);
 }
 
 function load() {
@@ -121,6 +139,12 @@ function initializeManagers() {
     
     keyboardManager = new KeyboardManager(
         "Keyboard Manager"
+    );
+
+    menuManager = new MyMenuManager(
+        "Menu Manager",
+        notificationCenter,
+        keyboardManager
     );
 }
 
