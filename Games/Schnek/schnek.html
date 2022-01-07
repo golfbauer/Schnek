@@ -3,68 +3,62 @@
 <head>
     <title>Schnek</title>
 
-    <!-- Include Stylesheets -->
+    <meta charset="UTF-8">
+
     <link rel="stylesheet" href="css/style.css" />
 
-    <!-- Add JQuery Support -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
-    <!-- Create Game Window -->
-    <div id="game_window" class="wrapper">
+    <div id="game_window">
 
-        <!-- Create Menus -->
         <div id="menu_block">
+
             <!-- Main Menu -->
             <div id="main_menu" class="menu">
                 <h1>Schnek</h1>
                 <ul>
                     <li><a href="javascript:void(0)" class="button normal">Normal</a></li>
-                    <li><a href="javascript:void(0)" class="button powerUp">Power Up</a></li>
-                    <li><a href="javascript:void(0)" class="button comingSoon">Coming Soon</a></li>
+                    <li><a href="javascript:void(0)" class="button power_up">Power Up</a></li>
+                    <li><a href="javascript:void(0)" class="button coming_soon">Coming Soon</a></li>
                     <li><a href="javascript:void(0)" class="button exit">Exit Game</a></li>
                 </ul>
             </div>
 
-            <!-- Normal Mode Description-->
-            <div id="normalMode_menu" class="description hidden">
-                <blockquote>
-                    You can move using W, A, S, D!
-                    Try not to hit the wall and yourself!
-                    Collect the food lying around!
-                    The Game will start as soon as you hit start!
-                    Have fun!
-                </blockquote>
-                <span><a href="javascript:void(0)" class="button playNormal">Play</a>
-                    <a href="javascript:void(0)" class="button backNormal">Back</a></span>
+            <!-- Normal Mode Menu-->
+            <div id="normal_mode_menu" class="description hidden">
+                <div class="wrapper_description">
+                    <blockquote>
+                        You can move using W, A, S, D! Try not to hit the wall and yourself! Collect the food lying around! The Game will start as soon as you hit start! Have fun!
+                    </blockquote>
+                </div>
+                <span><a href="javascript:void(0)" class="button play_normal">Play</a>
+                    <a href="javascript:void(0)" class="button back_normal">Back</a></span>
             </div>
 
-            <!-- Power Up Mode Description-->
-            <div id="powerUpMode_menu" class="description hidden">
-                <blockquote>
-                    You can move using W, A, S, D!
-                    Try not to hit the wall and yourself!
-                    Collect the food lying around!
-                    The snake will randomly change its attributes after eating!
-                    The Game will start as soon as you hit start!
-                    Have fun!
-                </blockquote>
-                <a href="javascript:void(0)" class="button playPowerUp">Play</a>
-                <a href="javascript:void(0)" class="button backPowerUp">Back</a>
+            <!-- Power Up Mode Menu-->
+            <div id="power_up_mode_menu" class="description hidden">
+                <div class="wrapper_description">
+                    <blockquote>
+                        You can move using W, A, S, D! Try not to hit the wall and yourself! Collect the food lying around! The snake will randomly change its attributes after eating! The Game will start as soon as you hit start! Have fun!
+                    </blockquote>
+                </div>
+                <a href="javascript:void(0)" class="button play_power_up">Play</a>
+                <a href="javascript:void(0)" class="button back_power_up">Back</a>
             </div>
 
-            <!-- Coming Soon Description-->
+            <!-- Coming Soon Menu-->
 
             <!-- Death Menu -->
-            <div id="death_menu" class="death hidden">
-                <div class="wrapper">
-                        <img src="assets/images/Food.png">
-                        <img src="assets/images/SnakeByGoogle.png">
+            <div id="death_menu" class="death_menu hidden">
+                <div class="wrapper_death_menu">
+                    <img src="assets/images/Food.png">
+                    <img src="assets/images/SnakeByGoogle.png">
                     <p><span id="amount_food">0</span><span id="length_snake">0</span></p>
                 </div>
-                <a href="javascript:void(0)" class="button playAgain">Play Again!</a>
-                <a href="javascript:void(0)" class="button backDeath">Back</a>
+                <a href="javascript:void(0)" class="button play_again">Play Again!</a>
+                <a href="javascript:void(0)" class="button back_from_death">Back</a>
             </div>
 
             <!-- Exit Menu -->
@@ -122,6 +116,7 @@
     <script src="js/Constants/constants.js"></script>
 
     <script src="js/Manager/MyMenuManager.js"></script>
+
     <!-- Load Game -->
     <script src="js/schnek.js"></script>
 </body>

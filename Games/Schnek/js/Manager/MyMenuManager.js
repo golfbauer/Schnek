@@ -67,9 +67,7 @@ class MyMenuManager extends MenuManager {
         if (statusType != 0) {
 
             $('#main_menu').hide();
-        }
-
-        else {
+        } else {
 
             $('#main_menu').show();
         }
@@ -77,109 +75,111 @@ class MyMenuManager extends MenuManager {
 
     initialize() {
 
-        // TO DO: Please make sure to hide any other menus that you have created
-
         // Hide the exit menu
         $('#exit_menu').hide();
         $('#exit_menu').addClass('hidden');
 
         // Hide Normal Mode Description
-        $('#normalMode_menu').hide();
-        $('#normalMode_menu').addClass('hidden');
+        $('#normal_mode_menu').hide();
+        $('#normal_mode_menu').addClass('hidden');
 
-        $('#powerUpMode_menu').hide();
-        $('#powerUpMode_menu').addClass('hidden');
+        // Hide Power Up Mode Description
+        $('#power_up_mode_menu').hide();
+        $('#power_up_mode_menu').addClass('hidden');
 
+        // Hide Menu after death
         $('#death_menu').hide();
         $('#death_menu').addClass('hidden');
 
-        // Hide the YOUR_MENU menu
-        // $('#YOUR_MENU_ID').hide();
-        // $('#YOUR_MENU_ID').addClass('hidden');
-
-        // If the play button is clicked
-        $('.normal').click(function () {
+        // If the play button for Normal Mode is clicked
+        $('.normal').click(function() {
 
             $('#main_menu').hide();
 
-            $('#normalMode_menu').show();
-            $('#normalMode_menu').removeClass('hidden');
-            
+            $('#normal_mode_menu').show();
+            $('#normal_mode_menu').removeClass('hidden');
+
         });
 
-        $('.playNormal').click(function() {
+        // If play button for Normal Mode in Description Menu is clicked
+        $('.play_normal').click(function() {
 
-            $('#normalMode_menu').hide();
+            $('#normal_mode_menu').hide();
 
             // Send a notification to update and draw the game
             notificationCenter.notify(
                 new Notification(
                     NotificationType.Menu,
-                    NotificationAction.ShowMenuChanged,
-                    [StatusType.Updated | StatusType.Drawn]
+                    NotificationAction.ShowMenuChanged, [StatusType.Updated | StatusType.Drawn]
                 )
             );
         });
 
-        $('.backNormal').click(function() {
-            $('#normalMode_menu').hide();
+        // If back button for Normal Mode in Description Menu is clicked
+        $('.back_normal').click(function() {
+            $('#normal_mode_menu').hide();
             $('#main_menu').show();
         })
 
-        $('.powerUp').click(function () {
+        // If the play button for Power Up Mode is clicked
+        $('.power_up').click(function() {
 
             // Hide the menu
             $('#main_menu').hide();
 
-            $('#powerUpMode_menu').show();
-            $('#powerUpMode_menu').removeClass('hidden');
+            $('#power_up_mode_menu').show();
+            $('#power_up_mode_menu').removeClass('hidden');
         });
 
-        $('.playPowerUp').click(function() {
+        // If play button for Power Up Mode in Description Menu is clicked
+        $('.play_power_up').click(function() {
 
-            $('#powerUpMode_menu').hide();
+            $('#power_up_mode_menu').hide();
 
-            // Send a notification to update and draw the game
             notificationCenter.notify(
                 new Notification(
                     NotificationType.Menu,
-                    NotificationAction.ShowMenuChanged,
-                    [StatusType.Updated | StatusType.Drawn]
+                    NotificationAction.ShowMenuChanged, [StatusType.Updated | StatusType.Drawn]
                 )
             );
         });
 
-        $('.backPowerUp').click(function() {
-            $('#powerUpMode_menu').hide();
+        // If back button for Power Up Mode in Description Menu is clicked
+        $('.back_power_up').click(function() {
+            $('#power_up_mode_menu').hide();
             $('#main_menu').show();
         });
 
         // If the exit button is clicked
-        $('.exit').click(function () {
+        $('.exit').click(function() {
             $('#exit_menu').show();
             $('#exit_menu').removeClass('hidden');
         });
 
-        // If play Again button is clicked after death
-        $('.playAgain').click(function () {
+        // If Play Again button is clicked after death
+        $('.play_again').click(function() {
             resetGame();
             $('#main_menu').hide();
 
             notificationCenter.notify(
                 new Notification(
                     NotificationType.Menu,
-                    NotificationAction.ShowMenuChanged,
-                    [StatusType.Updated | StatusType.Drawn]
+                    NotificationAction.ShowMenuChanged, [StatusType.Updated | StatusType.Drawn]
                 )
             );
         });
 
-        // If play Back button is clicked after death
-        $('.backDeath').click(function () {
+        // If Back button is clicked after death
+        $('.back_from_death').click(function() {
             resetGame();
         });
     }
 
+    /**
+     * Triggers the death menu and insert amount of food eaten and lengt of snake into HTML elements
+     * @param {Number} length 
+     * @param {Number} food 
+     */
     death(length, food) {
         $('#death_menu').show();
         $('#death_menu').removeClass('hidden');
