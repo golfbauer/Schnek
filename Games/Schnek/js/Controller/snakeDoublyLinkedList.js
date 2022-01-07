@@ -41,6 +41,7 @@ class snakeList {
         this.length = 1;
         this.tail = this.head;
         this.food = 0;
+        this.lives = 0;
     }
 
     printList() {
@@ -61,6 +62,11 @@ class snakeList {
         this.tail = newNode;
 
         this.length++;
+    }
+
+    remove() {
+        this.tail = this.tail.prev;
+        this.tail.next = null;
     }
 
     getById(newId) {

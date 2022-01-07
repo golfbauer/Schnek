@@ -136,7 +136,7 @@ function initializeManagers() {
         StatusType.Drawn | StatusType.Updated,
         cameraManager
     );
-    
+
     keyboardManager = new KeyboardManager(
         "Keyboard Manager"
     );
@@ -149,17 +149,17 @@ function initializeManagers() {
 }
 
 function initializeCameras() {
-    
+
     let transform = new Transform2D(
         Vector2.Zero,
         0,
         Vector2.One,
         new Vector2(
-            canvas.clientWidth / 2, 
+            canvas.clientWidth / 2,
             canvas.clientHeight / 2
         ),
         new Vector2(
-            canvas.clientWidth, 
+            canvas.clientWidth,
             canvas.clientHeight
         )
     );
@@ -179,15 +179,15 @@ function initializeSnakeList() {
     snakeNodeHead = new snakeNode(
         0, 4, 7, new Vector2(1, 0)
     );
-    
+
     snakeNodeBody1 = new snakeNode(
         1, 3, 7, new Vector2(1, 0)
     );
-    
+
     snakeNodeBody2 = new snakeNode(
         2, 2, 7, new Vector2(1, 0)
     );
-    
+
     snakeNodeBody3 = new snakeNode(
         3, 1, 7, new Vector2(1, 0)
     );
@@ -196,7 +196,7 @@ function initializeSnakeList() {
         4, 0, 7, new Vector2(1, 0)
     );
 
-    
+
     snakeNodeList = new snakeList(
         snakeNodeHead
     );
@@ -243,7 +243,7 @@ function initializeGrassTiles() {
 
     transformDark = new Transform2D(
         new Vector2(
-            BoardData.GRASS_TILE_X, 
+            BoardData.GRASS_TILE_X,
             0
         ),
         0,
@@ -262,10 +262,10 @@ function initializeGrassTiles() {
         1,
         new Vector2(
             20,     //TODO: make constants
-            55      
+            55
         ),
         new Vector2(
-            BoardData.GRASS_TILE_X,     
+            BoardData.GRASS_TILE_X,
             BoardData.GRASS_TILE_Y
         )
     );
@@ -276,10 +276,10 @@ function initializeGrassTiles() {
         1,
         new Vector2(
             115,     //TODO: make constants
-            50      
+            50
         ),
         new Vector2(
-            BoardData.GRASS_TILE_X,     
+            BoardData.GRASS_TILE_X,
             BoardData.GRASS_TILE_Y
         )
     );
@@ -304,7 +304,7 @@ function initializeGrassTiles() {
 
     for (let i = 0; i < 17; i++) {
         for (let j = 0; j < 15; j++) {
-            if (i%2 == 0) {
+            if (i % 2 == 0) {
                 grassLightClone = grassArchetypeLight.clone();
                 grassDarkClone = grassArchetypeDark.clone();
 
@@ -313,8 +313,8 @@ function initializeGrassTiles() {
 
                 grassLightClone.transform.setTranslation(
                     new Vector2(
-                        i*BoardData.GRASS_TILE_X,
-                        j*BoardData.GRASS_TILE_Y
+                        i * BoardData.GRASS_TILE_X,
+                        j * BoardData.GRASS_TILE_Y
                     )
                 );
                 objectManager.add(grassLightClone);
@@ -326,8 +326,8 @@ function initializeGrassTiles() {
 
                 grassDarkClone.transform.setTranslation(
                     new Vector2(
-                        i*BoardData.GRASS_TILE_X,
-                        j*BoardData.GRASS_TILE_Y
+                        i * BoardData.GRASS_TILE_X,
+                        j * BoardData.GRASS_TILE_Y
                     )
                 );
                 objectManager.add(grassDarkClone);
@@ -340,12 +340,12 @@ function initializeGrassTiles() {
 
                 grassDarkClone.transform.setTranslation(
                     new Vector2(
-                        i*BoardData.GRASS_TILE_X,
-                        j*BoardData.GRASS_TILE_Y
+                        i * BoardData.GRASS_TILE_X,
+                        j * BoardData.GRASS_TILE_Y
                     )
                 );
                 objectManager.add(grassDarkClone);
-                
+
                 j++;
                 if (j == 10) {
                     continue;
@@ -353,12 +353,12 @@ function initializeGrassTiles() {
 
                 grassLightClone.transform.setTranslation(
                     new Vector2(
-                        i*BoardData.GRASS_TILE_X,
-                        j*BoardData.GRASS_TILE_Y
+                        i * BoardData.GRASS_TILE_X,
+                        j * BoardData.GRASS_TILE_Y
                     )
-                );    
-                objectManager.add(grassLightClone);            
-            }           
+                );
+                objectManager.add(grassLightClone);
+            }
         }
     }
 }
@@ -366,7 +366,7 @@ function initializeGrassTiles() {
 function initializeSnakeTail() {
     let transform = null;
     let artist = null;
-    
+
     transform = new Transform2D(
         new Vector2(
             0,
@@ -452,8 +452,8 @@ function initializeSnakeBody() {
         StatusType.Updated | StatusType.Drawn,
         artist
     );
-    
-    for(let i = 1; i < 4; i++) {
+
+    for (let i = 1; i < 4; i++) {
 
         spriteClone = spriteArchetype.clone();
 
@@ -461,12 +461,12 @@ function initializeSnakeBody() {
 
         spriteClone.transform.setTranslation(
             new Vector2(
-                BoardData.GRASS_TILE_X*i,
+                BoardData.GRASS_TILE_X * i,
                 280
             )
         );
 
-        allMainBodys[3-i].sprite = spriteClone;
+        allMainBodys[3 - i].sprite = spriteClone;
 
         objectManager.add(spriteClone);
     }
@@ -484,7 +484,7 @@ function initializeSnakeHead() {
             160,
             279
         ),
-        0, 
+        0,
         Vector2.One,
         Vector2.Zero,
         new Vector2(
@@ -540,10 +540,10 @@ function initializeFood() {
 
     transform = new Transform2D(
         new Vector2(
-            Math.floor(Math.random() * BoardData.BOARD_X_TILES)*BoardData.GRASS_TILE_X+5,
-            Math.floor(Math.random() * BoardData.BOARD_Y_TILES)*BoardData.GRASS_TILE_Y+5 
+            Math.floor(Math.random() * BoardData.BOARD_X_TILES) * BoardData.GRASS_TILE_X + 5,
+            Math.floor(Math.random() * BoardData.BOARD_Y_TILES) * BoardData.GRASS_TILE_Y + 5
         ),
-        0, 
+        0,
         Vector2.One,
         Vector2.Zero,
         new Vector2(
@@ -585,6 +585,11 @@ function initializeFood() {
 }
 
 function resetGame() {
+    SnakeData.MOVE_INTERVAL = 200;
+    SnakeData.MOVE_LEFT = Keys.A;
+    SnakeData.MOVE_RIGHT = Keys.D;
+    SnakeData.MOVE_UP = Keys.W;
+    SnakeData.MOVE_DOWN = Keys.S;
     clearCanvas();
     start();
 }

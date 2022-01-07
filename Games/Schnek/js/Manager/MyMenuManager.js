@@ -136,6 +136,8 @@ class MyMenuManager extends MenuManager {
 
             $('#power_up_mode_menu').hide();
 
+            BoardData.POWER_UP_MODE = true;
+
             notificationCenter.notify(
                 new Notification(
                     NotificationType.Menu,

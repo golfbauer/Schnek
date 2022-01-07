@@ -6,11 +6,10 @@ class snakeNodeController {
 
         this.currentMoveIncrement = 0;
         this.timeSinceLastMoveInMs = 0;
-        this.move_interval = SnakeData.MOVE_INTERVAL;
     }
 
     update(gameTime, parent) {
-        if (this.timeSinceLastMoveInMs >= this.move_interval) {
+        if (this.timeSinceLastMoveInMs >= SnakeData.MOVE_INTERVAL) {
 
             this.checkForCollisionWithBorder();
 
