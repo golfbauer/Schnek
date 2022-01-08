@@ -19,6 +19,7 @@ let cameraManager;
 let objectManager;
 let keyboardManager;
 let menuManager;
+let soundManager;
 
 let snakeNodeList;
 
@@ -139,6 +140,12 @@ function initializeManagers() {
 
     keyboardManager = new KeyboardManager(
         "Keyboard Manager"
+    );
+
+    soundManager = new SoundManager(
+        "Sound Manager",
+        notificationCenter,
+        BoardData.AUDIO_CUE_ARRAY
     );
 
     menuManager = new MyMenuManager(
@@ -525,7 +532,8 @@ function initializeSnakeHead() {
     snakeHeadSprite.attachController(
         new snakeNodeController(
             snakeNodeList,
-            menuManager
+            menuManager,
+            notificationCenter
         )
     );
 
@@ -577,7 +585,8 @@ function initializeFood() {
             snakeNodeList,
             objectManager,
             context,
-            snakeSpriteSheet
+            snakeSpriteSheet,
+            notificationCenter
         )
     );
 

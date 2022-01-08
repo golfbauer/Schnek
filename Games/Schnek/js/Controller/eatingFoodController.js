@@ -1,6 +1,7 @@
 class eatingFoodController {
 
-    constructor(snakeList, objectManager, context, snakeSpriteSheet) {
+    constructor(snakeList, objectManager, context, snakeSpriteSheet, notificationCenter) {
+        this.notificationCenter = notificationCenter;
         this.snakeList = snakeList;
         this.objectManager = objectManager;
         this.context = context;
@@ -28,6 +29,14 @@ class eatingFoodController {
                 this.extendSnake();
             }
             document.getElementById("current_food").innerHTML = this.snakeList.food;
+
+            notificationCenter.notify(
+                new Notification(
+                    NotificationType.Sound,
+                    NotificationAction.Play,
+                    ["eating"]
+                )
+            );
         } else if(this.runningFood && this.timeSinceLastMoveInMs >= BoardData.FOOD_MOVE_INTERVAL) {
             parent.transform.setTranslation(this.randomFoodSpot());
             if(this.runningFoodCount == 5) {

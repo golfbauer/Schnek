@@ -1,8 +1,9 @@
 class snakeNodeController {
 
-    constructor(snakeNodeList, menuManager) {
+    constructor(snakeNodeList, menuManager, notificationCenter) {
         this.snakeNodeList = snakeNodeList;
         this.menuManager = menuManager;
+        this.notificationCenter = notificationCenter;
 
         this.currentMoveIncrement = 0;
         this.timeSinceLastMoveInMs = 0;
@@ -12,10 +13,10 @@ class snakeNodeController {
         if (this.timeSinceLastMoveInMs >= SnakeData.MOVE_INTERVAL) {
 
             let checkForCollision = false;
-            
+
             checkForCollision = this.checkForCollisionWithBorder();
 
-            if(checkForCollision) {
+            if (checkForCollision) {
                 return;
             }
 
@@ -24,7 +25,7 @@ class snakeNodeController {
 
                 checkForCollision = this.checkForCollisionWithBody(currentNode);
 
-                if(checkForCollision) {
+                if (checkForCollision) {
                     return;
                 }
 
@@ -90,6 +91,13 @@ class snakeNodeController {
 
         if (currentNode.x_pat == head.x_pat + head.direct.x
             && currentNode.y_pat == head.y_pat + head.direct.y) {
+            notificationCenter.notify(
+                new Notification(
+                    NotificationType.Sound,
+                    NotificationAction.Play,
+                    ["death"]
+                )
+            );
             this.updateSprite(head, head.prev);
             this.passingOnInfoAfterCollision();
             return true;
@@ -104,6 +112,13 @@ class snakeNodeController {
             || head.x_pat + head.direct.x < 0
             || head.y_pat + head.direct.y >= BoardData.BOARD_Y_TILES
             || head.y_pat + head.direct.y < 0) {
+            notificationCenter.notify(
+                new Notification(
+                    NotificationType.Sound,
+                    NotificationAction.Play,
+                    ["death"]
+                )
+            );
             this.updateSprite(head, head.prev);
             this.passingOnInfoAfterCollision();
             return true;

@@ -6,6 +6,13 @@ class BoardData {
     static POWER_UP_MODE = false;
 
     static FOOD_MOVE_INTERVAL = 600;
+
+    static AUDIO_CUE_ARRAY = [
+        new AudioCue("eating", AudioType.All, 1, 1, 0, false),
+        new AudioCue("death", AudioType.WinLose, 1, 1, 0, false),
+        new AudioCue("winning", AudioType.WinLose, 1, 1, 0, false),
+        new AudioCue("gameplay", AudioType.Background, 1, 1, 0, true)
+    ];
 }
 
 class SnakeData {
@@ -25,8 +32,6 @@ class SnakeData {
 
 /*
 TODO:
-    Snake starts moving after key press?
-    Snake dies from tile behind tail
     Audio?
     clean up code
 */
