@@ -4,6 +4,8 @@ class BoardData {
     static BOARD_X_TILES = 17;
     static BOARD_Y_TILES = 15;
     static POWER_UP_MODE = false;
+
+    static FOOD_MOVE_INTERVAL = 600;
 }
 
 class SnakeData {

@@ -4,7 +4,12 @@ class eatingFoodController {
         this.snakeList = snakeList;
         this.objectManager = objectManager;
         this.context = context;
+
         this.snakeSpriteSheet = snakeSpriteSheet;
+        this.runningFood = false;
+        this.runningFoodCount = 0;
+        this.currentMoveIncrement = 0;
+        this.timeSinceLastMoveInMs = 0;
     }
 
     update(gameTime, parent) {
@@ -23,7 +28,16 @@ class eatingFoodController {
                 this.extendSnake();
             }
             document.getElementById("current_food").innerHTML = this.snakeList.food;
+        } else if(this.runningFood && this.timeSinceLastMoveInMs >= BoardData.FOOD_MOVE_INTERVAL) {
+            parent.transform.setTranslation(this.randomFoodSpot());
+            if(this.runningFoodCount == 5) {
+                this.runningFood = false;
+                this.runningFoodCount = 0;
+            }
+            this.runningFoodCount++;
+            this.timeSinceLastMoveInMs = 0;
         }
+        this.timeSinceLastMoveInMs += gameTime.elapsedTimeInMs;
     }
 
     randomFoodSpot() {
@@ -118,6 +132,7 @@ class eatingFoodController {
 
     changeRandomAttribute() {
         SnakeData.MOVE_INTERVAL = 200;
+
         SnakeData.MOVE_LEFT = Keys.A;
         SnakeData.MOVE_RIGHT = Keys.D;
         SnakeData.MOVE_UP = Keys.W;
@@ -128,11 +143,13 @@ class eatingFoodController {
         SnakeData.MOVE_UP_ARROW = Keys.ArrowUp;
         SnakeData.MOVE_DOWN_ARROW = Keys.ArrowDown;
 
+        this.runningFood = false;
+
         let popup = document.getElementById("popup");
         popup.className = "show";
         let temp = true;
 
-        switch (Math.floor(Math.random() * 4)) {
+        switch (Math.floor(Math.random()*5)) {
             case (0):
                 SnakeData.MOVE_INTERVAL -= 50;
                 popup.innerHTML = "Speed Increased!";
@@ -160,8 +177,12 @@ class eatingFoodController {
                     popup.innerHTML = "Length reduced!";
                 }
                 break;
+            case(4):
+                this.runningFood = true;
+                popup.innerHTML = "Your food is running away!"
+                break;
         }
-        setTimeout(function(){ popup.className = popup.className.replace("show", ""); }, 750);
+        setTimeout(function(){ popup.className = popup.className.replace("show", ""); }, 1500);
         return temp;
     }
 }

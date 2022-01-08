@@ -586,10 +586,17 @@ function initializeFood() {
 
 function resetGame() {
     SnakeData.MOVE_INTERVAL = 200;
+
     SnakeData.MOVE_LEFT = Keys.A;
     SnakeData.MOVE_RIGHT = Keys.D;
     SnakeData.MOVE_UP = Keys.W;
     SnakeData.MOVE_DOWN = Keys.S;
+
+    SnakeData.MOVE_LEFT_ARROW = Keys.ArrowLeft;
+    SnakeData.MOVE_RIGHT_ARROW = Keys.ArrowRight;
+    SnakeData.MOVE_UP_ARROW = Keys.ArrowUp;
+    SnakeData.MOVE_DOWN_ARROW = Keys.ArrowDown;
+
     clearCanvas();
     start();
 }
