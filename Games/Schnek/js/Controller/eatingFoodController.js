@@ -121,9 +121,16 @@ class eatingFoodController {
         SnakeData.MOVE_RIGHT = Keys.D;
         SnakeData.MOVE_UP = Keys.W;
         SnakeData.MOVE_DOWN = Keys.S;
+
+        SnakeData.MOVE_LEFT_ARROW = Keys.ArrowLeft;
+        SnakeData.MOVE_RIGHT_ARROW = Keys.ArrowRight;
+        SnakeData.MOVE_UP_ARROW = Keys.ArrowUp;
+        SnakeData.MOVE_DOWN_ARROW = Keys.ArrowDown;
+
         let popup = document.getElementById("popup");
         popup.className = "show";
         let temp = true;
+        
         switch (Math.floor(Math.random() * 4)) {
             case (0):
                 SnakeData.MOVE_INTERVAL -= 50;
@@ -134,6 +141,11 @@ class eatingFoodController {
                 SnakeData.MOVE_RIGHT = Keys.A;
                 SnakeData.MOVE_UP = Keys.S;
                 SnakeData.MOVE_DOWN = Keys.W;
+
+                SnakeData.MOVE_LEFT_ARROW = Keys.ArrowRight;
+                SnakeData.MOVE_RIGHT_ARROW = Keys.ArrowLeft;
+                SnakeData.MOVE_UP_ARROW = Keys.ArrowDown;
+                SnakeData.MOVE_DOWN_ARROW = Keys.ArrowUp;
                 popup.innerHTML = "Controlls inverted!";
                 break;
             case (2):

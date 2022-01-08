@@ -8,10 +8,16 @@ class BoardData {
 
 class SnakeData {
     static MOVE_INTERVAL = 200;
+
     static MOVE_RIGHT = Keys.D; 
     static MOVE_LEFT = Keys.A;
     static MOVE_UP = Keys.W;
     static MOVE_DOWN = Keys.S;
+
+    static MOVE_LEFT_ARROW = Keys.ArrowLeft;
+    static MOVE_RIGHT_ARROW = Keys.ArrowRight;
+    static MOVE_UP_ARROW = Keys.ArrowUp;
+    static MOVE_DOWN_ARROW = Keys.ArrowDown;
 }
 
 
