@@ -32,6 +32,13 @@ class eatingFoodController {
             if(this.snakeList.length == 255) {
                 this.menuManager.death(this.snakeList.length, this.snakeList.food, true);
                 this.snakeList.head.sprite.detachControllerByID(1);
+                notificationCenter.notify(
+                    new Notification(
+                        NotificationType.Sound,
+                        NotificationAction.Play,
+                        ["winning"]
+                    )
+                );
             }
             document.getElementById("current_food").innerHTML = this.snakeList.food;
 
