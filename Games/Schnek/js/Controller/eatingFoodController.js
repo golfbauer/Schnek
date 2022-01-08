@@ -73,12 +73,14 @@ class eatingFoodController {
         let artist;
         let bodySprite;
 
+        let newTailDir = newTail.prev.direct.x == 0 ? newTail.prev.direct.y : newTail.prev.direct.x - 1;
+
         transform = new Transform2D(
             new Vector2(
                 newTail.x_pat * BoardData.GRASS_TILE_X,
                 newTail.y_pat * BoardData.GRASS_TILE_Y
             ),
-            0,
+            newTailDir * Math.PI / 2,
             Vector2.One,
             Vector2.Zero,
             new Vector2(
