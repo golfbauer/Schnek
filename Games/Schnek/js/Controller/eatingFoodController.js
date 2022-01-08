@@ -121,33 +121,34 @@ class eatingFoodController {
         SnakeData.MOVE_RIGHT = Keys.D;
         SnakeData.MOVE_UP = Keys.W;
         SnakeData.MOVE_DOWN = Keys.S;
+        let popup = document.getElementById("popup");
+        popup.className = "show";
         let temp = true;
         switch (Math.floor(Math.random() * 4)) {
             case (0):
-                SnakeData.MOVE_INTERVAL = 150;
-                console.log("Increased speed!");
+                SnakeData.MOVE_INTERVAL -= 50;
+                popup.innerHTML = "Speed Increased!";
                 break;
             case (1):
                 SnakeData.MOVE_LEFT = Keys.D;
                 SnakeData.MOVE_RIGHT = Keys.A;
                 SnakeData.MOVE_UP = Keys.S;
                 SnakeData.MOVE_DOWN = Keys.W;
-                console.log("Controlls inverted!");
+                popup.innerHTML = "Controlls inverted!";
                 break;
             case (2):
-                if (this.snakeList.lives == 0) {
-                    this.snakeList.lives++;
-                    console.log("Live +1!");
-                }
+                SnakeData.MOVE_INTERVAL += 50;
+                popup.innerHTML = "Speed Reduced!"
                 break;
             case (3):
                 if (this.snakeList.length > 3) {
                     this.reduceSnake();
                     temp = false;
-                    console.log("Length reduced!");
+                    popup.innerHTML = "Length reduced!";
                 }
                 break;
         }
+        setTimeout(function(){ popup.className = popup.className.replace("show", ""); }, 750);
         return temp;
     }
 }
