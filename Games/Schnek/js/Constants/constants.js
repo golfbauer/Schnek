@@ -23,7 +23,6 @@ class SnakeData {
 
 /*
 TODO:
-    Snake goes into wall when dead
     Extra live? Other Attribute?
     Snake starts moving after key press?
     Grayscale?

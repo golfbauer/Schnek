@@ -11,12 +11,22 @@ class snakeNodeController {
     update(gameTime, parent) {
         if (this.timeSinceLastMoveInMs >= SnakeData.MOVE_INTERVAL) {
 
-            this.checkForCollisionWithBorder();
+            let checkForCollision = false;
+            
+            checkForCollision = this.checkForCollisionWithBorder();
+
+            if(checkForCollision) {
+                return;
+            }
 
             let currentNode = this.snakeNodeList.tail;
             while (currentNode != null) {
 
-                this.checkForCollisionWithBody(currentNode);
+                checkForCollision = this.checkForCollisionWithBody(currentNode);
+
+                if(checkForCollision) {
+                    return;
+                }
 
                 let translateBy = new Vector2(
                     currentNode.direct.x * BoardData.GRASS_TILE_X,
@@ -80,8 +90,11 @@ class snakeNodeController {
 
         if (currentNode.x_pat == head.x_pat + head.direct.x
             && currentNode.y_pat == head.y_pat + head.direct.y) {
+            this.updateSprite(head, head.prev);
             this.passingOnInfoAfterCollision();
+            return true;
         }
+        return false;
     }
 
     checkForCollisionWithBorder() {
@@ -91,13 +104,15 @@ class snakeNodeController {
             || head.x_pat + head.direct.x < 0
             || head.y_pat + head.direct.y >= BoardData.BOARD_Y_TILES
             || head.y_pat + head.direct.y < 0) {
+            this.updateSprite(head, head.prev);
             this.passingOnInfoAfterCollision();
+            return true;
         }
+        return false;
     }
 
     passingOnInfoAfterCollision() {
         this.menuManager.death(this.snakeNodeList.length, this.snakeNodeList.food);
         this.snakeNodeList.head.sprite.detachControllerByID(1);
     }
-
 }
