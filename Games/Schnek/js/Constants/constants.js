@@ -26,7 +26,6 @@ class SnakeData {
 /*
 TODO:
     Snake starts moving after key press?
-    Grayscale?
     Snake dies from tile behind tail
     Audio?
     clean up code

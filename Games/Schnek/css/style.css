@@ -56,7 +56,10 @@ body {
 }
 
 #main_menu {
-    background-image: url('../assets/images/Background.png');
+    background-image: 
+    linear-gradient(rgb(66, 139, 64), rgb(66, 139, 64)),
+    url('../assets/images/Background.png');
+    background-blend-mode: saturation;
 }
 
 .menu {
@@ -148,7 +151,10 @@ a {
     position: absolute;
     width: 680;
     height: 600;
-    background-image: url('../assets/images/Background.png');
+    background-image: 
+    linear-gradient(rgb(66, 139, 64), rgb(66, 139, 64)),
+    url('../assets/images/Background.png');
+    background-blend-mode: saturation;
 }
 
 .wrapper_description {
