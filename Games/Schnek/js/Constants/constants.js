@@ -23,13 +23,12 @@ class SnakeData {
 
 /*
 TODO:
-    UI for food
-    Add Arrow Keys
     Snake goes into wall when dead
     Extra live? Other Attribute?
-    Snake starts moving after key press
+    Snake starts moving after key press?
     Grayscale?
     Tail right way when extend
     Snake dies from tile behind tail
+    Audio?
     clean up code
 */

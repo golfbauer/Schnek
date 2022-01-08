@@ -22,6 +22,7 @@ class eatingFoodController {
             if (temp) {
                 this.extendSnake();
             }
+            document.getElementById("current_food").innerHTML = this.snakeList.food;
         }
     }
 
@@ -130,7 +131,7 @@ class eatingFoodController {
         let popup = document.getElementById("popup");
         popup.className = "show";
         let temp = true;
-        
+
         switch (Math.floor(Math.random() * 4)) {
             case (0):
                 SnakeData.MOVE_INTERVAL -= 50;

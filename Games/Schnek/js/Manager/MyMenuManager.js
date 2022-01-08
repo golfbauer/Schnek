@@ -162,6 +162,7 @@ class MyMenuManager extends MenuManager {
         $('.play_again').click(function() {
             resetGame();
             $('#main_menu').hide();
+            document.getElementById("current_food").innerHTML = 0;
 
             notificationCenter.notify(
                 new Notification(
@@ -173,6 +174,7 @@ class MyMenuManager extends MenuManager {
 
         // If Back button is clicked after death
         $('.back_from_death').click(function() {
+            document.getElementById("current_food").innerHTML = 0;
             resetGame();
         });
     }
