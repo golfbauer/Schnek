@@ -1,9 +1,10 @@
 class eatingFoodController {
 
-    constructor(snakeList, objectManager, context, snakeSpriteSheet, notificationCenter) {
+    constructor(snakeList, objectManager, menuManager, context, snakeSpriteSheet, notificationCenter) {
         this.notificationCenter = notificationCenter;
         this.snakeList = snakeList;
         this.objectManager = objectManager;
+        this.menuManager = menuManager;
         this.context = context;
 
         this.snakeSpriteSheet = snakeSpriteSheet;
@@ -27,6 +28,10 @@ class eatingFoodController {
             }
             if (temp) {
                 this.extendSnake();
+            }
+            if(this.snakeList.length == 255) {
+                this.menuManager.death(this.snakeList.length, this.snakeList.food, true);
+                this.snakeList.head.sprite.detachControllerByID(1);
             }
             document.getElementById("current_food").innerHTML = this.snakeList.food;
 

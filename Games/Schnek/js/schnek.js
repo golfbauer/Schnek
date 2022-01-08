@@ -5,9 +5,6 @@ const canvas = document.getElementById("main_canvas");
 const context = canvas.getContext("2d");
 
 let gameTime;
-let grid = [
-    []
-];
 
 let notificationCenter;
 
@@ -584,6 +581,7 @@ function initializeFood() {
         new eatingFoodController(
             snakeNodeList,
             objectManager,
+            menuManager,
             context,
             snakeSpriteSheet,
             notificationCenter
