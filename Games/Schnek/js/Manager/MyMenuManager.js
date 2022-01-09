@@ -1,11 +1,12 @@
 class MyMenuManager extends MenuManager {
 
-    constructor(id, notificationCenter, keyboardManager, ) {
+    constructor(id, notificationCenter, keyboardManager,) {
 
         super(id);
 
         this.notificationCenter = notificationCenter;
         this.keyboardManager = keyboardManager;
+        this.checkForMusic = false;
 
         this.initialize();
 
@@ -92,7 +93,7 @@ class MyMenuManager extends MenuManager {
         $('#game_end_menu').addClass('hidden');
 
         // If the play button for Normal Mode is clicked
-        $('.normal').click(function() {
+        $('.normal').click(function () {
 
             $('#main_menu').hide();
 
@@ -102,7 +103,7 @@ class MyMenuManager extends MenuManager {
         });
 
         // If play button for Normal Mode in Description Menu is clicked
-        $('.play_normal').click(function() {
+        $('.play_normal').click(function () {
 
             $('#normal_mode_menu').hide();
 
@@ -116,13 +117,13 @@ class MyMenuManager extends MenuManager {
         });
 
         // If back button for Normal Mode in Description Menu is clicked
-        $('.back_normal').click(function() {
+        $('.back_normal').click(function () {
             $('#normal_mode_menu').hide();
             $('#main_menu').show();
         })
 
         // If the play button for Power Up Mode is clicked
-        $('.power_up').click(function() {
+        $('.power_up').click(function () {
 
             // Hide the menu
             $('#main_menu').hide();
@@ -132,7 +133,7 @@ class MyMenuManager extends MenuManager {
         });
 
         // If play button for Power Up Mode in Description Menu is clicked
-        $('.play_power_up').click(function() {
+        $('.play_power_up').click(function () {
 
             $('#power_up_mode_menu').hide();
 
@@ -147,24 +148,22 @@ class MyMenuManager extends MenuManager {
         });
 
         // If back button for Power Up Mode in Description Menu is clicked
-        $('.back_power_up').click(function() {
+        $('.back_power_up').click(function () {
             $('#power_up_mode_menu').hide();
             $('#main_menu').show();
         });
 
         // If the exit button is clicked
-        $('.exit').click(function() {
+        $('.exit').click(function () {
             $('#exit_menu').show();
             $('#exit_menu').removeClass('hidden');
         });
 
         // If Play Again button is clicked after game end
-        $('.play_again').click(function() {
+        $('.play_again').click(function () {
             resetGame();
 
             $('#main_menu').hide();
-
-            document.getElementById("current_food").innerHTML = 0;
 
             notificationCenter.notify(
                 new Notification(
@@ -175,10 +174,30 @@ class MyMenuManager extends MenuManager {
         });
 
         // If Back button is clicked after game ends
-        $('.back_from_game_end').click(function() {
-            document.getElementById("current_food").innerHTML = 0;
+        $('.back_from_game_end').click(function () {
             resetGame();
             BoardData.POWER_UP_MODE = false;
+        });
+
+        $('.toggle_music').click(function () {
+            checkForMusic = !checkForMusic;
+            if (checkForMusic) {
+                notificationCenter.notify(
+                    new Notification(
+                        NotificationType.Sound,
+                        NotificationAction.Play,
+                        ["gameplay"]
+                    )
+                );
+            } else {
+                notificationCenter.notify(
+                    new Notification(
+                        NotificationType.Sound,
+                        NotificationAction.Pause,
+                        ["gameplay"]
+                    )
+                );
+            }
         });
     }
 

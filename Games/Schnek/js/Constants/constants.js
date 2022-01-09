@@ -76,12 +76,3 @@ class SnakeData {
         SnakeData.MOVE_DOWN_ARROW = Keys.ArrowUp;
     }
 }
-
-
-/*
-TODO:
-    clean up code eatingFoodController
-    Pic for length game end menu
-    menu music?
-    toggle audio
-*/

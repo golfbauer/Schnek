@@ -6,42 +6,12 @@ body {
     background-color: rgb(10, 45, 65);
 }
 
-/* Small div that will count the food eaten */
-#food_count {
-    width: 680;
-    margin: 0 auto;
-    margin-bottom: 0%;
-    margin-top: 5%;
-}
-
-.wrapper_food_count {
-    margin-left: 600;
-    background-color: black;
-    border-radius: 25px;
-}
-
-#food_count img {
-    width: 40%;
-    height: auto;
-    margin-left: 10;
-    margin-bottom: 2;
-    margin-top: 2;
-}
-
-#food_count span {
-    position: relative;
-    color: white;
-    font-size: medium;
-    font-weight: bold;
-    margin-left: 5;
-    top: -5;
-}
-
 #game_window {
     position: relative;
     width: 680;
     height: 600;
     margin: 0 auto;
+    margin-top: 5%;
     background-color: #2B5754;
     border: 1px solid black;
 }

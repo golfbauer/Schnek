@@ -11,13 +11,6 @@
 </head>
 
 <body>
-    <div id="food_count">
-        <div class="wrapper_food_count">
-            <img src="assets/images/Food.png">
-            <span id="current_food">0</span>
-        </div>
-    </div>
-
     <div id="game_window">
 
         <div id="menu_block">
@@ -28,7 +21,7 @@
                 <ul>
                     <li><a href="javascript:void(0)" class="button normal">Normal</a></li>
                     <li><a href="javascript:void(0)" class="button power_up">Power Up</a></li>
-                    <li><a href="javascript:void(0)" class="button coming_soon">Coming Soon</a></li>
+                    <li><a href="javascript:void(0)" class="button toggle_music">Toggle Music</a></li>
                     <li><a href="javascript:void(0)" class="button exit">Exit Game</a></li>
                 </ul>
             </div>
@@ -115,14 +108,17 @@
     <script src="../../Engine/Artists/Images/SpriteArtist.js"></script>
     <script src="../../Engine/Artists/Images/ScrollingSpriteArtist.js"></script>
     <script src="../../Engine/Artists/Images/AnimatedSpriteArtist.js"></script>
+    <script src="../../Engine/Artists/Primitives/TextSpriteArtist.js"></script>
 
     <script src="../../Engine/Notification/NotificationCenter.js"></script>
 
     <script src="../../Engine/Managers/CameraManager.js"></script>
     <script src="../../Engine/Managers/ObjectManager.js"></script>
     <script src="../../Engine/Managers/KeyboardManager.js"></script>
+    <script src="../../Engine/Managers/MouseManager.js"></script>
     <script src="../../Engine/Managers/SoundManager.js"></script>
     <script src="../../Engine/Managers/MenuManager.js"></script>
+    <script src="../../Engine/Managers/UIManager.js"></script>
 
     <!-- Load Game Scripts -->
     <script src="js/Controller/snakeDoublyLinkedList.js"></script>
@@ -132,6 +128,7 @@
     <script src="js/Constants/constants.js"></script>
 
     <script src="js/Manager/MyMenuManager.js"></script>
+    <script src="js/Manager/MyUIManager.js"></script>
 
     <!-- Load Game -->
     <script src="js/schnek.js"></script>

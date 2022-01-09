@@ -7,6 +7,7 @@ const context = canvas.getContext("2d");
 let gameTime;
 
 let notificationCenter;
+let checkForMusic = false;
 
 let grassTileSpriteSheet;
 let snakeSpriteSheet;
@@ -15,8 +16,10 @@ let foodSpriteSheet;
 let cameraManager;
 let objectManager;
 let keyboardManager;
+let mouseManager;
 let menuManager;
 let soundManager;
+let uiManager;
 
 let snakeNodeList;
 
@@ -138,6 +141,9 @@ function initializeManagers() {
     keyboardManager = new KeyboardManager(
         "Keyboard Manager"
     );
+    mouseManager = new MouseManager(
+        "Mouse Manager"
+    );
 
     soundManager = new SoundManager(
         "Sound Manager",
@@ -150,6 +156,13 @@ function initializeManagers() {
         notificationCenter,
         keyboardManager
     );
+
+    uiManager = new MyUIManager(
+        "UI Manager",
+        notificationCenter,
+        objectManager,
+        mouseManager
+    )
 }
 
 function initializeCameras() {
@@ -219,6 +232,7 @@ function initializeSprites() {
     initializeSnakeBody();
     initializeSnakeTail();
     initializeFood();
+    initializeFoodUI();
 }
 
 function initializeGrassTiles() {
@@ -558,6 +572,47 @@ function initializeFood() {
     );
 
     objectManager.add(foodSprite);
+}
+
+function initializeFoodUI() {
+    let transfrom;
+    let sprite;
+    let artist;
+
+    transfrom = new Transform2D(
+        new Vector2(
+            canvas.clientWidth - 75,
+            10
+        ),
+        0,
+        Vector2.One,
+        Vector2.Zero,
+        new Vector2(20, 10)
+    );
+
+    artist = new TextSpriteArtist(
+        context,
+        1,
+        'Food: 0',
+        FontType.Basic,
+        Color.White,
+        TextAlignType.Left,
+        200,
+        false
+    );
+
+    sprite = new Sprite(
+        "Food UI",
+        transfrom,
+        ActorType.HUD,
+        CollisionType.NotCollidable,
+        StatusType.Updated | StatusType.Drawn,
+        artist,
+        1,
+        1
+    );
+
+    objectManager.add(sprite);
 }
 
 function resetGame() {

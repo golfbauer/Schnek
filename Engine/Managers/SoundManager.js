@@ -265,8 +265,11 @@ class SoundManager {
      */
     pause(name) {
 
-        // Get the audio object
-        let audioObject = getAudioObject(name);
+        let index = this.findIndex(name);
+
+        let audioCue = this.cueArray[index];
+
+        let audioObject = audioCue.audioObject;
 
         // If an audio object is present
         if (audioObject) {
@@ -275,7 +278,7 @@ class SoundManager {
             if (!audioObject.paused) {
 
                 // Pause the audio object
-                cue.pause();
+                audioObject.pause();
             }
         }
     }

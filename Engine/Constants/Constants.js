@@ -107,6 +107,10 @@ const Color = {
     // for colors that you use in free 3rd party images/sprites that you find online
 };
 
+const FontType = {
+    Basic: "18px Arial"
+}
+
 // Used by any entity which listens for key input
 const Keys = {
     A: "KeyA",
