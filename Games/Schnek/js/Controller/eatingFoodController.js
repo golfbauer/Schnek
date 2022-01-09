@@ -6,8 +6,8 @@ class eatingFoodController {
         this.objectManager = objectManager;
         this.menuManager = menuManager;
         this.context = context;
-
         this.snakeSpriteSheet = snakeSpriteSheet;
+
         this.runningFood = false;
         this.runningFoodCount = 0;
         this.currentMoveIncrement = 0;
@@ -20,28 +20,6 @@ class eatingFoodController {
         let yFood = (parent.transform.translation.y - 5) / BoardData.GRASS_TILE_Y;
         if (snakeHead.x_pat == xFood
             && snakeHead.y_pat == yFood) {
-            this.snakeList.food++;
-            parent.transform.setTranslation(this.randomFoodSpot());
-            let temp = true;
-            if (BoardData.POWER_UP_MODE) {
-                temp = this.changeRandomAttribute();
-            }
-            if (temp) {
-                this.extendSnake();
-            }
-            if(this.snakeList.length == 255) {
-                this.menuManager.gameEnd(this.snakeList.length, this.snakeList.food, true);
-                this.snakeList.head.sprite.detachControllerByID(1);
-                notificationCenter.notify(
-                    new Notification(
-                        NotificationType.Sound,
-                        NotificationAction.Play,
-                        ["winning"]
-                    )
-                );
-            }
-            document.getElementById("current_food").innerHTML = this.snakeList.food;
-
             notificationCenter.notify(
                 new Notification(
                     NotificationType.Sound,
@@ -49,9 +27,21 @@ class eatingFoodController {
                     ["eating"]
                 )
             );
-        } else if(this.runningFood && this.timeSinceLastMoveInMs >= BoardData.FOOD_MOVE_INTERVAL) {
-            parent.transform.setTranslation(this.randomFoodSpot());
-            if(this.runningFoodCount == 5) {
+            this.snakeList.food++;
+            parent.transform.setTranslation(this.findRandomFoodSpot());
+            let checkIfTailReduced = true;
+            if (BoardData.POWER_UP_MODE) {
+                checkIfTailReduced = this.changeRandomAttribute();
+            }
+            if (checkIfTailReduced) {
+                this.extendSnake();
+            }
+            this.handleGameEnd();
+            document.getElementById("current_food").innerHTML = this.snakeList.food;
+
+        } else if (this.runningFood && this.timeSinceLastMoveInMs >= BoardData.FOOD_MOVE_INTERVAL) {
+            parent.transform.setTranslation(this.findRandomFoodSpot());
+            if (this.runningFoodCount == BoardData.RUNNING_FOOD_MAXIMUM) {
                 this.runningFood = false;
                 this.runningFoodCount = 0;
             }
@@ -61,7 +51,7 @@ class eatingFoodController {
         this.timeSinceLastMoveInMs += gameTime.elapsedTimeInMs;
     }
 
-    randomFoodSpot() {
+    findRandomFoodSpot() {
         let randomSpot = new Vector2(
             Math.floor(Math.random() * BoardData.BOARD_X_TILES),
             Math.floor(Math.random() * BoardData.BOARD_Y_TILES)
@@ -78,14 +68,13 @@ class eatingFoodController {
         }
         randomSpot.x = randomSpot.x * BoardData.GRASS_TILE_X + 5;
         randomSpot.y = randomSpot.y * BoardData.GRASS_TILE_Y + 5;
-
         return randomSpot;
     }
 
     extendSnake() {
-        let tail = this.snakeList.tail;
+        let oldTail = this.snakeList.tail;
         let newTail = new snakeNode(
-            tail.id + 1, tail.x_pat + (-tail.direct.x), tail.y_pat + (-tail.direct.y), tail.direct
+            oldTail.id + 1, oldTail.x_pat + (-oldTail.direct.x), oldTail.y_pat + (-oldTail.direct.y), oldTail.direct
         );
 
         this.snakeList.append(newTail);
@@ -114,10 +103,7 @@ class eatingFoodController {
             this.context,
             this.snakeSpriteSheet,
             1,
-            new Vector2(
-                1,
-                60
-            ),
+            SnakeData.SNAKE_TAIL_SPRITE_POSITION,
             new Vector2(
                 BoardData.GRASS_TILE_X,
                 BoardData.GRASS_TILE_Y
@@ -137,56 +123,49 @@ class eatingFoodController {
 
         this.objectManager.add(bodySprite);
 
-        let tailDir = tail.prev.direct.x == 0 ? tail.prev.direct.y : tail.prev.direct.x - 1;
-        tail.sprite.transform.setRotationInRadians(tailDir * Math.PI / 2);
-        tail.sprite.artist.sourcePosition = new Vector2(65, 15);
-        tail.sprite.artist.sourceDimensions = new Vector2(BoardData.GRASS_TILE_X, BoardData.GRASS_TILE_Y);
+        this.adjustSpriteDirection(
+            oldTail.direct,
+            oldTail,
+            SnakeData.SNAKE_BODY_SPRITE_POSITION,
+            new Vector2(BoardData.GRASS_TILE_X, BoardData.GRASS_TILE_Y)
+        );
     }
 
     reduceSnake() {
         this.objectManager.remove(this.snakeList.tail.sprite);
         this.snakeList.remove();
-        let tail = this.snakeList.tail;
-        tail.sprite.artist.sourcePosition = new Vector2(1, 60);
-        tail.sprite.artist.sourceDimensions = new Vector2(BoardData.GRASS_TILE_X, BoardData.GRASS_TILE_Y);
-        let tailDir = tail.x == 0 ? tail.y : tail.x - 1;
-        tail.sprite.transform.setRotationInRadians(tailDir * Math.PI / 2);
+        this.adjustSpriteDirection(
+            this.snakeList.tail.direct,
+            this.snakeList.tail,
+            SnakeData.SNAKE_TAIL_SPRITE_POSITION,
+            new Vector2(BoardData.GRASS_TILE_X, BoardData.GRASS_TILE_Y)
+        );
+    }
+
+    adjustSpriteDirection(direction, snakeNode, sourcePosition, sourceDimensions) {
+        direction = direction.x == 0 ? direction.y : direction.x - 1;
+        snakeNode.sprite.artist.sourcePosition = sourcePosition;
+        snakeNode.sprite.artist.sourceDimensions = sourceDimensions;
+        snakeNode.sprite.transform.setRotationInRadians(0);
+        snakeNode.sprite.transform.setRotationInRadians(direction * Math.PI / 2);
     }
 
     changeRandomAttribute() {
-        SnakeData.MOVE_INTERVAL = 200;
-
-        SnakeData.MOVE_LEFT = Keys.A;
-        SnakeData.MOVE_RIGHT = Keys.D;
-        SnakeData.MOVE_UP = Keys.W;
-        SnakeData.MOVE_DOWN = Keys.S;
-
-        SnakeData.MOVE_LEFT_ARROW = Keys.ArrowLeft;
-        SnakeData.MOVE_RIGHT_ARROW = Keys.ArrowRight;
-        SnakeData.MOVE_UP_ARROW = Keys.ArrowUp;
-        SnakeData.MOVE_DOWN_ARROW = Keys.ArrowDown;
+        SnakeData.resetSnakeAttributes();
 
         this.runningFood = false;
 
         let popup = document.getElementById("popup");
         popup.className = "show";
-        let temp = true;
+        let checkForFoodMovement = true;
 
-        switch (Math.floor(Math.random()*5)) {
+        switch (Math.floor(Math.random() * 5)) {
             case (0):
-                SnakeData.MOVE_INTERVAL -= 50;
+                SnakeData.MOVE_INTERVAL -= 100;
                 popup.innerHTML = "Speed Increased!";
                 break;
             case (1):
-                SnakeData.MOVE_LEFT = Keys.D;
-                SnakeData.MOVE_RIGHT = Keys.A;
-                SnakeData.MOVE_UP = Keys.S;
-                SnakeData.MOVE_DOWN = Keys.W;
-
-                SnakeData.MOVE_LEFT_ARROW = Keys.ArrowRight;
-                SnakeData.MOVE_RIGHT_ARROW = Keys.ArrowLeft;
-                SnakeData.MOVE_UP_ARROW = Keys.ArrowDown;
-                SnakeData.MOVE_DOWN_ARROW = Keys.ArrowUp;
+                SnakeData.invertSnakeMovement();
                 popup.innerHTML = "Controlls inverted!";
                 break;
             case (2):
@@ -196,16 +175,30 @@ class eatingFoodController {
             case (3):
                 if (this.snakeList.length > 3) {
                     this.reduceSnake();
-                    temp = false;
+                    checkForFoodMovement = false;
                     popup.innerHTML = "Length reduced!";
                 }
                 break;
-            case(4):
+            case (4):
                 this.runningFood = true;
                 popup.innerHTML = "Your food is running away!"
                 break;
         }
-        setTimeout(function(){ popup.className = popup.className.replace("show", ""); }, 1500);
-        return temp;
+        setTimeout(function () { popup.className = popup.className.replace("show", ""); }, 1500);
+        return checkForFoodMovement;
+    }
+
+    handleGameEnd() {
+        if (this.snakeList.length == BoardData.WINNING_LENGTH) {
+            notificationCenter.notify(
+                new Notification(
+                    NotificationType.Sound,
+                    NotificationAction.Play,
+                    ["winning"]
+                )
+            );
+            this.menuManager.gameEnd(this.snakeList.length, this.snakeList.food, true);
+            this.snakeList.head.sprite.detachControllerByID(1);
+        }
     }
 }

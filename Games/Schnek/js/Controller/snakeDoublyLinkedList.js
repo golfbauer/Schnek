@@ -90,6 +90,7 @@ class snakeList {
     remove() {
         this.tail = this.tail.prev;
         this.tail.next = null;
+        this.length--;
     }
 
     /**

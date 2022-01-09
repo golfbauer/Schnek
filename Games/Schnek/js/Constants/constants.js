@@ -14,6 +14,7 @@ class BoardData {
 
     static POWER_UP_MODE = false;
     static FOOD_MOVE_INTERVAL = 600;
+    static RUNNING_FOOD_MAXIMUM = 6;
 
     static AUDIO_CUE_ARRAY = [
         new AudioCue("eating", AudioType.All, 1, 1, 0, false),
@@ -21,6 +22,8 @@ class BoardData {
         new AudioCue("winning", AudioType.WinLose, 1, 1, 0, false),
         new AudioCue("gameplay", AudioType.Background, 1, 1, 0, true)
     ];
+
+    static WINNING_LENGTH = 255;
 }
 
 class SnakeData {
@@ -37,7 +40,7 @@ class SnakeData {
 
     static MOVE_INTERVAL = 200;
 
-    static MOVE_RIGHT = Keys.D; 
+    static MOVE_RIGHT = Keys.D;
     static MOVE_LEFT = Keys.A;
     static MOVE_UP = Keys.W;
     static MOVE_DOWN = Keys.S;
@@ -54,16 +57,31 @@ class SnakeData {
         SnakeData.MOVE_RIGHT = Keys.D;
         SnakeData.MOVE_UP = Keys.W;
         SnakeData.MOVE_DOWN = Keys.S;
-    
+
         SnakeData.MOVE_LEFT_ARROW = Keys.ArrowLeft;
         SnakeData.MOVE_RIGHT_ARROW = Keys.ArrowRight;
         SnakeData.MOVE_UP_ARROW = Keys.ArrowUp;
         SnakeData.MOVE_DOWN_ARROW = Keys.ArrowDown;
+    }
+
+    static invertSnakeMovement() {
+        SnakeData.MOVE_LEFT = Keys.D;
+        SnakeData.MOVE_RIGHT = Keys.A;
+        SnakeData.MOVE_UP = Keys.S;
+        SnakeData.MOVE_DOWN = Keys.W;
+
+        SnakeData.MOVE_LEFT_ARROW = Keys.ArrowRight;
+        SnakeData.MOVE_RIGHT_ARROW = Keys.ArrowLeft;
+        SnakeData.MOVE_UP_ARROW = Keys.ArrowDown;
+        SnakeData.MOVE_DOWN_ARROW = Keys.ArrowUp;
     }
 }
 
 
 /*
 TODO:
-    clean up code
+    clean up code eatingFoodController
+    Pic for length game end menu
+    menu music?
+    toggle audio
 */
