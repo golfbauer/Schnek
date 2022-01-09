@@ -1,5 +1,9 @@
 # 2D Game Engine Development
 
+* Github https://github.com/golfbauer/Schnek
+* Developer James Farrell, Henri Truetsch
+
+
 ## File Structure
 
 ```
