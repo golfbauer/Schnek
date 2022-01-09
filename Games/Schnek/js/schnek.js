@@ -264,10 +264,7 @@ function initializeGrassTiles() {
         context,
         grassTileSpriteSheet,
         1,
-        new Vector2(
-            20,     //TODO: make constants
-            55
-        ),
+        BoardData.LIGHT_GRASS_SPRITE,
         new Vector2(
             BoardData.GRASS_TILE_X,
             BoardData.GRASS_TILE_Y
@@ -278,10 +275,7 @@ function initializeGrassTiles() {
         context,
         grassTileSpriteSheet,
         1,
-        new Vector2(
-            115,     //TODO: make constants
-            50
-        ),
+        BoardData.DARK_GRASS_SPRITE,
         new Vector2(
             BoardData.GRASS_TILE_X,
             BoardData.GRASS_TILE_Y
@@ -308,20 +302,19 @@ function initializeGrassTiles() {
 
     for (let i = 0; i < 17; i++) {
         for (let j = 0; j < 15; j++) {
+            grassLightClone = grassArchetypeLight.clone();
+            grassDarkClone = grassArchetypeDark.clone();
+
+            grassLightClone.id = grassLightClone.id + i + j;
+            grassDarkClone.id = grassDarkClone.id + i + j + 1;
+
             if (i % 2 == 0) {
-                grassLightClone = grassArchetypeLight.clone();
-                grassDarkClone = grassArchetypeDark.clone();
-
-                grassLightClone.id = grassLightClone.id + i + j;
-                grassDarkClone.id = grassDarkClone.id + i + j + 1;
-
                 grassLightClone.transform.setTranslation(
                     new Vector2(
                         i * BoardData.GRASS_TILE_X,
                         j * BoardData.GRASS_TILE_Y
                     )
                 );
-                objectManager.add(grassLightClone);
 
                 j++;
                 if (j == 10) {
@@ -334,21 +327,14 @@ function initializeGrassTiles() {
                         j * BoardData.GRASS_TILE_Y
                     )
                 );
-                objectManager.add(grassDarkClone);
+
             } else {
-                grassLightClone = grassArchetypeLight.clone();
-                grassDarkClone = grassArchetypeDark.clone();
-
-                grassLightClone.id = grassLightClone.id + i + j;
-                grassDarkClone.id = grassDarkClone.id + i + j + 1;
-
                 grassDarkClone.transform.setTranslation(
                     new Vector2(
                         i * BoardData.GRASS_TILE_X,
                         j * BoardData.GRASS_TILE_Y
                     )
                 );
-                objectManager.add(grassDarkClone);
 
                 j++;
                 if (j == 10) {
@@ -361,8 +347,10 @@ function initializeGrassTiles() {
                         j * BoardData.GRASS_TILE_Y
                     )
                 );
-                objectManager.add(grassLightClone);
+
             }
+            objectManager.add(grassLightClone);
+            objectManager.add(grassDarkClone);
         }
     }
 }
@@ -374,7 +362,7 @@ function initializeSnakeTail() {
     transform = new Transform2D(
         new Vector2(
             0,
-            280
+            SnakeData.SNAKE_START_POSITION_Y
         ),
         0,
         Vector2.One,
@@ -389,10 +377,7 @@ function initializeSnakeTail() {
         context,
         snakeSpriteSheet,
         1,
-        new Vector2(
-            1,
-            60
-        ),
+        SnakeData.SNAKE_TAIL_SPRITE_POSITION,
         new Vector2(
             BoardData.GRASS_TILE_X,
             BoardData.GRASS_TILE_Y
@@ -423,7 +408,7 @@ function initializeSnakeBody() {
     transform = new Transform2D(
         new Vector2(
             120,
-            280
+            SnakeData.SNAKE_START_POSITION_Y
         ),
         0,
         Vector2.One,
@@ -438,10 +423,7 @@ function initializeSnakeBody() {
         context,
         snakeSpriteSheet,
         1,
-        new Vector2(
-            65,
-            15
-        ),
+        SnakeData.SNAKE_BODY_SPRITE_POSITION,
         new Vector2(
             BoardData.GRASS_TILE_X,
             BoardData.GRASS_TILE_Y
@@ -466,11 +448,11 @@ function initializeSnakeBody() {
         spriteClone.transform.setTranslation(
             new Vector2(
                 BoardData.GRASS_TILE_X * i,
-                280
+                SnakeData.SNAKE_START_POSITION_Y
             )
         );
 
-        allMainBodys[3 - i].sprite = spriteClone;
+        allMainBodys[3-i].sprite = spriteClone;
 
         objectManager.add(spriteClone);
     }
@@ -486,26 +468,20 @@ function initializeSnakeHead() {
     transform = new Transform2D(
         new Vector2(
             160,
-            279
+            SnakeData.SNAKE_START_POSITION_Y-1
         ),
         0,
         Vector2.One,
         Vector2.Zero,
-        new Vector2(
-            43,
-            43
-        )
+        SnakeData.SNAKE_HEAD_SPRITE_DIMENSION
     );
 
     artist = new SpriteArtist(
         context,
         snakeSpriteSheet,
         1,
-        Vector2.Zero,
-        new Vector2(
-            43,
-            43
-        )
+        SnakeData.SNAKE_HEAD_SPRITE_POSITION,
+        SnakeData.SNAKE_HEAD_SPRITE_DIMENSION
     );
 
     snakeHeadSprite = new Sprite(
@@ -524,8 +500,6 @@ function initializeSnakeHead() {
         )
     );
 
-    snakeNodeHead.sprite = snakeHeadSprite;
-
     snakeHeadSprite.attachController(
         new snakeNodeController(
             snakeNodeList,
@@ -534,6 +508,7 @@ function initializeSnakeHead() {
         )
     );
 
+    snakeNodeHead.sprite = snakeHeadSprite;
     objectManager.add(snakeHeadSprite);
 }
 
@@ -551,10 +526,7 @@ function initializeFood() {
         0,
         Vector2.One,
         Vector2.Zero,
-        new Vector2(
-            30,
-            30
-        )
+        BoardData.FOOD_TRANSFORM_DIMENSION
     );
 
     artist = new SpriteArtist(
@@ -562,10 +534,7 @@ function initializeFood() {
         foodSpriteSheet,
         1,
         Vector2.Zero,
-        new Vector2(
-            830,
-            568
-        )
+        BoardData.FOOD_SPRITE_DIMENSION
     );
 
     foodSprite = new Sprite(
@@ -592,18 +561,7 @@ function initializeFood() {
 }
 
 function resetGame() {
-    SnakeData.MOVE_INTERVAL = 200;
-
-    SnakeData.MOVE_LEFT = Keys.A;
-    SnakeData.MOVE_RIGHT = Keys.D;
-    SnakeData.MOVE_UP = Keys.W;
-    SnakeData.MOVE_DOWN = Keys.S;
-
-    SnakeData.MOVE_LEFT_ARROW = Keys.ArrowLeft;
-    SnakeData.MOVE_RIGHT_ARROW = Keys.ArrowRight;
-    SnakeData.MOVE_UP_ARROW = Keys.ArrowUp;
-    SnakeData.MOVE_DOWN_ARROW = Keys.ArrowDown;
-
+    SnakeData.resetSnakeAttributes();
     clearCanvas();
     start();
 }

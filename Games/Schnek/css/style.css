@@ -6,6 +6,7 @@ body {
     background-color: rgb(10, 45, 65);
 }
 
+/* Small div that will count the food eaten */
 #food_count {
     width: 680;
     margin: 0 auto;
@@ -176,14 +177,14 @@ a {
     background-color: black;
 }
 
-/* Menu after deaths */
-.death_menu {
+/* Menu after game end */
+.game_end_menu {
     margin-top: 212;
     margin-left: 140;
     width: 400;
 }
 
-.wrapper_death_menu {
+.wrapper_game_end_menu {
     margin: 0 auto;
     width: 250;
     height: auto;
@@ -191,17 +192,17 @@ a {
     border-radius: 25px;
 }
 
-.wrapper_death_menu img {
+.wrapper_game_end_menu img {
     margin: 15;
     width: 25%;
     height: auto;
 }
 
-.wrapper_death_menu p {
+.wrapper_game_end_menu p {
     padding-bottom: 10;
 }
 
-.wrapper_death_menu span {
+.wrapper_game_end_menu span {
     margin-bottom: 10;
     margin-left: 40;
     margin-right: 40;

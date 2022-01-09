@@ -87,9 +87,9 @@ class MyMenuManager extends MenuManager {
         $('#power_up_mode_menu').hide();
         $('#power_up_mode_menu').addClass('hidden');
 
-        // Hide Menu after death
-        $('#death_menu').hide();
-        $('#death_menu').addClass('hidden');
+        // Hide Menu after game end
+        $('#game_end_menu').hide();
+        $('#game_end_menu').addClass('hidden');
 
         // If the play button for Normal Mode is clicked
         $('.normal').click(function() {
@@ -158,7 +158,7 @@ class MyMenuManager extends MenuManager {
             $('#exit_menu').removeClass('hidden');
         });
 
-        // If Play Again button is clicked after death
+        // If Play Again button is clicked after game end
         $('.play_again').click(function() {
             resetGame();
 
@@ -174,8 +174,8 @@ class MyMenuManager extends MenuManager {
             );
         });
 
-        // If Back button is clicked after death
-        $('.back_from_death').click(function() {
+        // If Back button is clicked after game ends
+        $('.back_from_game_end').click(function() {
             document.getElementById("current_food").innerHTML = 0;
             resetGame();
             BoardData.POWER_UP_MODE = false;
@@ -183,13 +183,13 @@ class MyMenuManager extends MenuManager {
     }
 
     /**
-     * Triggers the death menu and insert amount of food eaten and lengt of snake into HTML elements
+     * Triggers the game_end menu and insert amount of food eaten and lengt of snake into HTML elements
      * @param {Number} length 
      * @param {Number} food 
      */
-    death(length, food) {
-        $('#death_menu').show();
-        $('#death_menu').removeClass('hidden');
+    gameEnd(length, food) {
+        $('#game_end_menu').show();
+        $('#game_end_menu').removeClass('hidden');
         document.getElementById("amount_food").innerHTML = food;
         document.getElementById("length_snake").innerHTML = length;
 

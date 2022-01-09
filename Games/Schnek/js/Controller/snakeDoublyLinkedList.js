@@ -1,4 +1,13 @@
 class snakeNode {
+
+    /**
+     * Each Node represents part of the Snake
+     * @param {Number} id 
+     * @param {Number} x_pat 
+     * @param {Number} y_pat 
+     * @param {Vector2} direct 
+     * @param {Sprite} sprite 
+     */
     constructor(id, x_pat, y_pat, direct, sprite) {
         this.id = id;
         this.next = null;
@@ -36,14 +45,21 @@ class snakeNode {
 
 class snakeList {
 
+    /**
+     * Contains all parts of Snake as a doubly Linked list
+     * @param {snakeNode} snakeNodeHead 
+     */
     constructor(snakeNodeHead) {
         this.head = snakeNodeHead;
-        this.length = 1;
         this.tail = this.head;
+        this.length = 1;
         this.food = 0;
-        this.lives = 0;
     }
 
+    /**
+     * Prints all IDs of each Node (Can be used for debugging)
+     * @returns Array of IDs of each Node
+     */
     printList() {
         let array = [];
         let currentList = this.head;
@@ -56,6 +72,10 @@ class snakeList {
         return this;
     }
 
+    /**
+     * Adds a new Node to the List, which will become the tail
+     * @param {snakeNode} newNode 
+     */
     append(newNode) {
         this.tail.next = newNode;
         newNode.prev = this.tail;
@@ -64,15 +84,23 @@ class snakeList {
         this.length++;
     }
 
+    /**
+     * Removes current tail and makes prev to tail
+     */
     remove() {
         this.tail = this.tail.prev;
         this.tail.next = null;
     }
 
-    getById(newId) {
+    /**
+     * Finds Node whith given Id
+     * @param {Number} id 
+     * @returns 
+     */
+    getById(id) {
         let currentNode = this.head;
         while (currentNode !== null) {
-            if (currentNode.id == newId) {
+            if (currentNode.id == id) {
                 return currentNode;
             }
             currentNode = currentNode.next;
@@ -80,6 +108,10 @@ class snakeList {
         throw "Error: Id does not exist in Doubly Linked List";
     }
 
+    /**
+     * Get all Positions from each Node inside doubly Linked list
+     * @returns Array of all Positions as Vector2s
+     */
     getAllPositions() {
         let array = [];
         let currentList = this.head;
@@ -88,13 +120,5 @@ class snakeList {
             currentList = currentList.next;
         }
         return array;
-    }
-
-    stopSnake() {
-        let currentList = this.head;
-        while (currentList !== null) {
-            currentList.direct = Vector2.Zero;
-            currentList = currentList.next;
-        }
     }
 }
