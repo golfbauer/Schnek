@@ -1,0 +1,17 @@
+eating.wav
+  Name: Koops 
+  Notice: This work is licensed under the Attribution License.
+  Attribution 3.0 Unported (CC BY 3.0) 
+  Link: https://freesound.org/people/Koops/sounds/20279/
+  
+death.wav
+  Name: timgormly 
+  Notice: This work is licensed under the Attribution License.
+  Attribution 3.0 Unported (CC BY 3.0) 
+  Link: https://freesound.org/people/timgormly/sounds/170141/
+  
+winning.wav
+  Name: Mativve 
+  Notice: This work is licensed under the Attribution License.
+  Attribution 3.0 Unported (CC BY 3.0) 
+  Link: https://freesound.org/people/Mativve/sounds/391539/
